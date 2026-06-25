@@ -1,0 +1,45 @@
+{ config, pkgs, inputs, vars, ... }:
+{
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/common.nix
+    ../../modules/shell.nix
+    ../../modules/desktop/hyprland.nix
+    ../../modules/sudo.nix
+    ../../modules/utilities.nix
+    # ../../modules/printing.nix
+    ../../modules/virtual-machines/virt-manager.nix
+    ../../modules/wireshark.nix
+  ];
+
+    # Boot configuration
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # Gnome keyring daemon for secrets management
+  services.gnome.gnome-keyring.enable = true;
+
+  hardware.bluetooth.enable = true;
+  programs.kdeconnect.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    ntfs3g
+    dnsmasq
+    wireguard-tools
+    direnv # for python projects so vscode recognizes nix shell
+    nix-direnv 
+  ];
+
+  # for platformio
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    zlib
+    glibc
+  ];
+
+  boot.kernelModules = [ "drivetemp" ];  # for reading HDD temps
+  users.users.${vars.username}.extraGroups = [ "dialout" ]; # for flashing microcontrolers
+
+  system.stateVersion = "26.05";
+}

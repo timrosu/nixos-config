@@ -10,13 +10,24 @@
     };
     yazi.url = "github:sxyazi/yazi";
   };
-  outputs = inputs@{ self, nixpkgs, ... }: {
-    # NOTE: 'nixos' is the default hostname
-    nixosConfigurations.t480 = nixpkgs.lib.nixosSystem {
-      modules = [
-	./configuration.nix
-	./modules/shell.nix
-      ];
+  outputs = { self, nixpkgs, nixvim, nur, home-manager, yazi, ... }@inputs: let
+    vars = import ./vars.nix;
+  in {
+    nixosConfigurations = {
+      t480 = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./hosts/t480/configuration.nix
+          nixvim.nixosModules.nixvim
+          ./modules/nixvim.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.${vars.username} = ./home-manager/users/${vars.username}.nix;
+            home-manager.extraSpecialArgs = { inherit inputs vars; hostName = "t480"; };
+          }
+        ];
+      }
     };
   };
 }
