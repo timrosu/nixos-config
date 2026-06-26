@@ -15,6 +15,8 @@
   in {
     nixosConfigurations = {
       t480 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs vars self; };
         modules = [
           ./hosts/t480/configuration.nix
           nixvim.nixosModules.nixvim
