@@ -20,4 +20,8 @@
     ../../modules/yazi.nix
   ];
 
+  # services.gnome-keyring = {
+  #   enable = true;
+  # };
+
 }

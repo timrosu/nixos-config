@@ -22,4 +22,16 @@
   programs.zsh.enable = true;
 
   xdg.enable = true; # required by home manager
+
+  services.gnome-keyring.enable = true;
+  systemd.user.services.gnome-keyring = {
+    Unit = {
+      Description = "GNOME Keyring";
+      After = ["dbus.service"];
+    };
+    Service = {
+      Type = "dbus";
+      BusName = "org.gnome.keyring";
+    };
+  };
 }

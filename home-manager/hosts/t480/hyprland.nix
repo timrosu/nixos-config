@@ -46,8 +46,6 @@ in
                 hl.exec_cmd("[workspace 5 silent] kitty")
                 hl.exec_cmd("kdeconnect-indicator")
                 hl.exec_cmd("[workspace 1 silent] firefox")
-                hl.exec_cmd("dbus-update-activation-environment --all")
-                hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
                 hl.exec_cmd("opencloud")
               end
             '')
