@@ -27,7 +27,7 @@
             home-manager.extraSpecialArgs = { inherit inputs vars; hostName = "t480"; };
           }
         ];
-      }
+      };
     };
   };
 }
