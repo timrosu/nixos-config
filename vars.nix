@@ -22,7 +22,7 @@ in {
 
   email = {
     personal = secrets.email.personal;
-    git = secrets.email.git
+    git = secrets.email.git;
   };
 
   timeZone = "Europe/Ljubljana";
