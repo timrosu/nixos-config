@@ -43,17 +43,16 @@ let
       {_args = ["SUPER + C" (lua ''hl.dsp.window.close()'')];}
 
       # jump to window
-      {_args = ["SUPER + l" (lua ''hl.dsp.focus { direction = "r" }'')];}
       {_args = ["SUPER + h" (lua ''hl.dsp.focus { direction = "l" }'')];}
       {_args = ["SUPER + j" (lua ''hl.dsp.focus { direction = "d" }'')];}
       {_args = ["SUPER + k" (lua ''hl.dsp.focus { direction = "u" }'')];}
       {_args = ["SUPER + l" (lua ''hl.dsp.focus { direction = "r" }'')];}
 
       # resize window
-      {_args = ["SUPER + ALT + up" (lua ''hl.dsp.window.resize({ x = 0, y = -60, relative = true })'')];}
-      {_args = ["SUPER + ALT + down" (lua ''hl.dsp.window.resize({ x = 0, y = 60, relative = true })'')];}
-      {_args = ["SUPER + ALT + left" (lua ''hl.dsp.window.resize({ x = -60, y = 0, relative = true })'')];}
-      {_args = ["SUPER + ALT + right" (lua ''hl.dsp.window.resize({ x = 60, y = 0, relative = true })'')];}
+      {_args = ["SUPER + ALT + h" (lua ''hl.dsp.window.resize({ x = -60, y = 0, relative = true })'')];}
+      {_args = ["SUPER + ALT + j" (lua ''hl.dsp.window.resize({ x = 0, y = 60, relative = true })'')];}
+      {_args = ["SUPER + ALT + k" (lua ''hl.dsp.window.resize({ x = 0, y = -60, relative = true })'')];}
+      {_args = ["SUPER + ALT + l" (lua ''hl.dsp.window.resize({ x = 60, y = 0, relative = true })'')];}
 
       # jump to workspace
       {_args = ["SUPER + SHIFT + 1" (lua ''hl.dsp.window.move({ workspace = "1" })'')];}
@@ -66,8 +65,11 @@ let
       {_args = ["SUPER + SHIFT + 8" (lua ''hl.dsp.window.move({ workspace = 8 })'')];}
       {_args = ["SUPER + SHIFT + 9" (lua ''hl.dsp.window.move({ workspace = 9 })'')];}
 
-      # move window to workspace
+      # scratchpad
       {_args = ["SUPER + S" (lua ''hl.dsp.workspace.toggle_special("magic")'')];}
+      {_args = ["SUPER + SHIFT + S" (lua ''hl.dsp.window.move({ workspace = "special:magic" })'')];}
+
+	# move window to workspace
       {_args = ["SUPER + 1" (lua ''hl.dsp.focus { workspace = 1 }'')];}
       {_args = ["SUPER + 2" (lua ''hl.dsp.focus { workspace = 2 }'')];}
       {_args = ["SUPER + 3" (lua ''hl.dsp.focus { workspace = 3 }'')];}
