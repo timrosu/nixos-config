@@ -34,10 +34,11 @@ let
     };
 
     bind = [
-      {_args = ["SUPER + L" (lua ''hl.dsp.exec_cmd("hyprlock")'')];}
+      {_args = ["SUPER + X" (lua ''hl.dsp.exec_cmd("hyprlock")'')];}
       {_args = ["SUPER + Q" (lua ''hl.dsp.exec_cmd("kitty")'')];}
       {_args = ["SUPER + M" (lua ''hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit")'')];}
       {_args = ["SUPER + E" (lua ''hl.dsp.exec_cmd("kitty yazi")'')];}
+      {_args = ["SUPER + B" (lua ''hl.dsp.exec_cmd("firefox")'')];}
       {_args = ["SUPER + V" (lua ''hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy")'')];}
       {_args = ["SUPER + R" (lua ''hl.dsp.exec_cmd("rofi -show drun")'')];}
       {_args = ["SUPER + C" (lua ''hl.dsp.window.close()'')];}
@@ -49,10 +50,10 @@ let
       {_args = ["SUPER + l" (lua ''hl.dsp.focus { direction = "r" }'')];}
 
       # resize window
-      {_args = ["SUPER + ALT + h" (lua ''hl.dsp.window.resize({ x = -60, y = 0, relative = true })'')];}
-      {_args = ["SUPER + ALT + j" (lua ''hl.dsp.window.resize({ x = 0, y = 60, relative = true })'')];}
-      {_args = ["SUPER + ALT + k" (lua ''hl.dsp.window.resize({ x = 0, y = -60, relative = true })'')];}
-      {_args = ["SUPER + ALT + l" (lua ''hl.dsp.window.resize({ x = 60, y = 0, relative = true })'')];}
+      {_args = ["SUPER + ALT + h" (lua ''hl.dsp.window.resize({ x = -60, y = 0, relative = true })'') {repeating = true;}];}
+      {_args = ["SUPER + ALT + j" (lua ''hl.dsp.window.resize({ x = 0, y = 60, relative = true })'')  {repeating = true;}];}
+      {_args = ["SUPER + ALT + k" (lua ''hl.dsp.window.resize({ x = 0, y = -60, relative = true })'') {repeating = true;}];}
+      {_args = ["SUPER + ALT + l" (lua ''hl.dsp.window.resize({ x = 60, y = 0, relative = true })'') {repeating = true;}];}
 
       # jump to workspace
       {_args = ["SUPER + SHIFT + 1" (lua ''hl.dsp.window.move({ workspace = "1" })'')];}
@@ -69,7 +70,7 @@ let
       {_args = ["SUPER + S" (lua ''hl.dsp.workspace.toggle_special("magic")'')];}
       {_args = ["SUPER + SHIFT + S" (lua ''hl.dsp.window.move({ workspace = "special:magic" })'')];}
 
-	# move window to workspace
+      # move window to workspace
       {_args = ["SUPER + 1" (lua ''hl.dsp.focus { workspace = 1 }'')];}
       {_args = ["SUPER + 2" (lua ''hl.dsp.focus { workspace = 2 }'')];}
       {_args = ["SUPER + 3" (lua ''hl.dsp.focus { workspace = 3 }'')];}
@@ -92,6 +93,7 @@ let
 
       # calculator
       {_args = ["XF86Calculator" (lua ''hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort")'')];}
+      {_args = ["SUPER + SHIFT + R" (lua ''hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort")'')];}
 
       # change volume
       {_args = ["XF86AudioMute" (lua ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")'') {locked = true;} ];}
