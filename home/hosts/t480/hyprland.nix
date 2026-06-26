@@ -40,25 +40,19 @@ in
             (lua /* lua */ ''
               function()
                 hl.exec_cmd("hypridle")
-                hl.exec_cmd("[workspace 6 silent] Telegram")
-                hl.exec_cmd("[workspace 6 silent] discord")
-                hl.exec_cmd("[workspace 5 silent] kitty yazi")
-                hl.exec_cmd("[workspace 5 silent] kitty")
                 hl.exec_cmd("kdeconnect-indicator")
-                hl.exec_cmd("[workspace 1 silent] firefox")
-                hl.exec_cmd("opencloud")
               end
             '')
-          ];
+	  ];
         }
       ];
 
       bind = [
         {_args = ["PRINT" (lua ''hl.dsp.exec_cmd("hyprshot -z -m region -o ${vars.dir.home}/screenshots/")'')];}
-        {_args = ["XF86MonBrightnessUp" (lua ''hl.dsp.exec_cmd("brightnessctl set 5%+")'')];}
-        {_args = ["XF86MonBrightnessDown" (lua ''hl.dsp.exec_cmd("brightnessctl set 5%-")'')];}
-        {_args = ["XF86AudioMicMute" (lua ''hl.dsp.exec_cmd("pamixer --default-source --toggle-mute")'')];}
-        {_args = ["SUPER + plus" (lua ''hl.dsp.window.fullscreen( { mode = fullscreen, action = toggle } )'')];}
+        {_args = ["XF86MonBrightnessUp" (lua ''hl.dsp.exec_cmd("brightnessctl set 5%+")'') {locked = true;}];}
+        {_args = ["XF86MonBrightnessDown" (lua ''hl.dsp.exec_cmd("brightnessctl set 5%-")'') {locked = true;}];}
+        {_args = ["XF86AudioMicMute" (lua ''hl.dsp.exec_cmd("pamixer --default-source --toggle-mute")'') {locked = true;}];}
+        {_args = ["SUPER + f" (lua ''hl.dsp.window.fullscreen( { mode = fullscreen, action = toggle } )'')];}
       ];
 
       workspace_rule = [
