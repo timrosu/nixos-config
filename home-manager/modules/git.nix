@@ -5,8 +5,8 @@
     enable = true;
     settings = {
       user = {
-        name = "Tomasinjo";
-        email = vars.email.tom;
+        name = "timrosu";
+        email = vars.email.git;
       };
       push = {
         autoSetupRemote = true;
