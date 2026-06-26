@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./networking.nix
     ../../modules/common.nix
     ../../modules/shell.nix
     ../../modules/desktop/hyprland.nix
