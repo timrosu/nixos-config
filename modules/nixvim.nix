@@ -1,0 +1,123 @@
+{ pkgs, ... }:
+
+{
+  environment.systemPackages = with pkgs; [ 
+    ripgrep # required for Telescope live_grep
+  ];
+  
+  programs.nixvim = {
+    enable = true;
+    defaultEditor = true;
+
+    colorschemes.catppuccin = {
+      enable = true;
+      settings = {
+        flavour = "mocha";
+      };
+    };
+
+    opts = {
+      number = true;         # Line numbers
+      relativenumber = true; # Relative numbers for jumping
+      shiftwidth = 2;        # Tab width
+      smartindent = true;
+      ignorecase = true;
+      breakindent = true;
+      cursorline = true;     # Highlight current line
+      scrolloff = 8;         # Keep 8 lines above/below cursor
+      clipboard = "unnamedplus";
+    };
+
+    globals.mapleader = " ";
+    keymaps = [
+      { mode = "n"; key = "<leader>ff"; action = "<cmd>Telescope find_files<CR>"; }
+      { mode = "n"; key = "<leader>e";  action = "<cmd>Oil<CR>"; } # file explorer
+      {
+        mode = "n";
+        key = "<leader>fg";
+        action.__raw = '' 
+          function()
+            local path
+            local ok, oil = pcall(require, "oil")
+
+            -- Try to get path from Oil
+            if ok and vim.bo.filetype == "oil" then
+              path = oil.get_current_dir()
+            else
+              -- Try to get directory of current file
+              path = vim.fn.expand("%:p:h")
+            end
+
+            -- Fallback to CWD if path is empty or invalid (e.g. empty buffer)
+            if path == "" or path == "." then
+              path = vim.fn.getcwd()
+            end
+
+            require("telescope.builtin").live_grep({
+              cwd = path,
+            })
+          end
+        '';
+        options = { desc = "Grep in current directory, oil or file directory"; };
+      }
+    ];
+
+    # Plugins
+    plugins = {
+      web-devicons.enable = true; # File icons
+      lightline.enable = true; # Status bar
+      telescope.enable = true; # Search
+      treesitter.enable = true; # Highlighting
+      oil.enable = true;       # File management
+      
+      # Auto-completion
+      cmp = {
+        enable = true;
+        settings.sources = [
+          { name = "nvim_lsp"; }
+          { name = "path"; }
+          { name = "buffer"; }
+        ];
+      };
+
+      # LSP (Language Servers)
+      lsp = {
+        enable = true;
+        servers = {
+          nil_ls = {
+            enable = true;
+            settings = {
+              nix = {
+                flake = {
+                  autoArchive = true;
+                };
+              };
+            };
+          };
+          lua_ls.enable = true;   # Lua
+          pyright.enable = true;  # Python
+          bashls.enable = true;   # Bash
+        };
+      };
+    };
+    extraConfigLua = ''
+      if vim.env.SSH_TTY then
+        vim.g.clipboard = {
+          name = 'OSC 52',
+          copy = {
+            ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+            ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+          },
+          paste = {
+            ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+            ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+          },
+        }
+      end
+
+      -- Make line numbers brighter
+      vim.cmd('highlight LineNr guifg=#9399b2 guibg=NONE')
+      vim.cmd('highlight CursorLineNr guifg=#f5c2e7 guibg=NONE')
+    '';
+  };
+}

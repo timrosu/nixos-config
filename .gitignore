@@ -1,0 +1,15 @@
+# NixOS
+result
+result-*
+*.swp
+*.swo
+*~
+
+.vscode/
+.idea/
+
+# Secrets
+secrets/decrypted/
+*.decrypted
+
+git-crypt-key
