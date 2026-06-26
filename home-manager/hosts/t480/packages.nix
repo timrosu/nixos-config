@@ -15,7 +15,6 @@
     imagemagick
     rofi-bluetooth
     networkmanager_dmenu
-    realvnc-vnc-viewer
     opencloud-desktop
     arduino-ide
     protonmail-desktop
