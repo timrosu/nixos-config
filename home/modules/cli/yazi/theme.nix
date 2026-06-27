@@ -14,8 +14,8 @@
   mode = {};
   status = {
     overall = {bold = true;};
-    sep_left = ["░▒▓" "▓▒░"];
-    sep_right = ["░▒▓" "▓▒░"];
+    sep_left = ["(" ")"];
+    sep_right = ["(" ")"];
   };
   which = {
     cols = 3;

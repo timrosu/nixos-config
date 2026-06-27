@@ -442,6 +442,11 @@
         desc = "Go home";
       }
       {
+	on = ["g" "n"];
+	run = "cd ~/nix-conf";
+	desc = "Goto ~/nix-conf";
+      }
+      {
         on = ["g" "c"];
         run = "cd ~/.config";
         desc = "Goto ~/.config";
