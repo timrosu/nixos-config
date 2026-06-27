@@ -7,6 +7,5 @@
     acpi
     intel-gpu-tools
     upower
-    qutebrowser
   ];
 }
