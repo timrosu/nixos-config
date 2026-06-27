@@ -34,7 +34,7 @@ let
     };
 
     bind = [
-      {_args = ["SUPER + X" (lua ''hl.dsp.exec_cmd("hyprlock")'')];}
+      {_args = ["SUPER + SHIFT + X" (lua ''hl.dsp.exec_cmd("hyprlock")'')];}
       {_args = ["SUPER + Q" (lua ''hl.dsp.exec_cmd("kitty")'')];}
       {_args = ["SUPER + M" (lua ''hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit")'')];}
       {_args = ["SUPER + E" (lua ''hl.dsp.exec_cmd("kitty yazi")'')];}
