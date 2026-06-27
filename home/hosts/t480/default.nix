@@ -3,8 +3,8 @@
 {
   imports = [
     ./packages.nix
-    ../../modules/firefox/firefox-base.nix
-    ../../modules/firefox/extensions.nix
+    ../../modules/firefox/default.nix
+    # ../../modules/firefox/extensions.nix
     # ../../modules/firefox/bookmarks.nix
     ../../modules/vscode.nix
     ../../modules/desktop/hyprland-base.nix

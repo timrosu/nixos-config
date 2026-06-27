@@ -1,6 +1,8 @@
-{ pkgs, vars, config, ... }:
-
-{
+{ pkgs, vars, config, ... }: let
+  extensions = import ./extensions.nix;
+  search_engines = import ./search-engines.nix;
+  # bookmarks = import ./bookmarks.nix;
+in {
   programs.firefox = {
     enable = true;
     configPath = "${config.xdg.configHome}/mozilla/firefox";
@@ -13,6 +15,7 @@
         Locked = true;
         Cryptomining = true;
         Fingerprinting = true;
+	ExtensionSettings = extensions;
       };
       DisablePocket = true;
       DisableFirefoxAccounts = true;
@@ -39,20 +42,7 @@
         "devtools.toolbox.host" = "right";
 	      # "browser.startup.homepage" = "https://home.${vars.net.domain}";
       };
-      # search = {
-      #   force = true;
-      #   default = "Fikus";
-      #   engines = {
-      #     "Fikus" = {
-      #       urls = [{ 
-      #         template = "https://search.${vars.net.domain}/search?q={searchTerms}"; 
-      #       }];
-      #       icon = "https://search.${vars.net.domain}/favicon.ico";
-      #       updateInterval = 24 * 60 * 60 * 1000; # daily update
-      #       definedAliases = [ "@s" ];
-      #     };
-      #   };
-      # };
+      search = search_engines;
     };
   };
 }

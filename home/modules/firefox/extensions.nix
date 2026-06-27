@@ -1,12 +1,9 @@
-{ pkgs, vars, ... }:
-
 # Check about:support for extension/add-on ID strings.
 # Valid strings for installation_mode are "allowed", "blocked",
 # "force_installed" and "normal_installed".
 
 {
-  programs.firefox.policies.ExtensionSettings = {
-    "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
+    # "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
 
     # uBlock Origin:
     "uBlock0@raymondhill.net" = {
@@ -38,10 +35,9 @@
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/nicothin-space/latest.xpi";
       installation_mode = "force_installed";
     };
-    # Metamask:
-    "webextension@metamask.io" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ether-metamask/latest.xpi";
+    # Firefox Multi-Account Containers
+    "@testpilot-containers" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/@testpilot-containers/latest.xpi";
       installation_mode = "force_installed";
     };
-  };
-}
+  }
