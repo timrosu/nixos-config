@@ -8,7 +8,7 @@
     ../../modules/desktop/hyprland.nix
     ../../modules/sudo.nix
     ../../modules/utilities.nix
-    ../../modules/virtual-machines/virt-manager.nix
+    ../../modules/virtual-machines/libvirt.nix
 
     ../../modules/hardware/intel/intel-qsv.nix
     ../../modules/hardware/intel/efficiency.nix
