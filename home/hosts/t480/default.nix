@@ -17,7 +17,10 @@
     ../../modules/desktop/hyprsunset.nix
     ../../modules/protonmail-bridge.nix
     ../../modules/thunderbird.nix
-    ../../modules/yazi/default.nix
+
+    ../../modules/cli/yazi/default.nix
+    ../../modules/cli/btop.nix
+    ../../modules/cli/lazygit.nix
   ];
 
   # services.gnome-keyring = {
