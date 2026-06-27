@@ -41,7 +41,7 @@ let
       {_args = ["SUPER + B" (lua ''hl.dsp.exec_cmd("firefox")'')];}
       {_args = ["SUPER + V" (lua ''hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy")'')];}
       {_args = ["SUPER + R" (lua ''hl.dsp.exec_cmd("rofi -show drun")'')];}
-      {_args = ["SUPER + C" (lua ''hl.dsp.window.close()'')];}
+      {_args = ["SUPER + W" (lua ''hl.dsp.window.close()'')];}
 
       # jump to window
       {_args = ["SUPER + h" (lua ''hl.dsp.focus { direction = "l" }'')];}
