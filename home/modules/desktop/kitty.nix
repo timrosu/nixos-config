@@ -10,8 +10,8 @@
 
     settings = {
       # Window appearance
-      window_padding_width = "10";
-      window_margin_width = "5";
+      window_padding_width = "2";
+      window_margin_width = "1";
       single_window_margin_width = "-1";
       placement_strategy = "center";
       hide_window_decorations = "titlebar-only";
