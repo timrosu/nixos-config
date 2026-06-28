@@ -1,12 +1,16 @@
 {pkgs, ...}: let
-  settings = import ./yazi.nix;
+  settings = import ./settings.nix;
   keymap = import ./keymap.nix;
   theme = import ./theme.nix;
 in {
+  home.packages = with pkgs; [
+    exiftool
+  ];
+
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
-    shellWrapperName = "yy";
+    shellWrapperName = "y";
     settings = settings;
     keymap = keymap;
     theme = theme;
