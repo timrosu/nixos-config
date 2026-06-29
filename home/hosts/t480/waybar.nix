@@ -2,18 +2,19 @@
 {
   home.packages = with pkgs; [
     brightnessctl
+    wlogout
   ];
   
   wayland.waybar = {
-    modulesLeft = [ "custom/logo" "clock" "cpu" "memory" "disk" "temperature" "custom/powerDraw" ];
+    modulesLeft = [ "custom/logo"  "clock" "cpu" "memory" "temperature" "custom/powerDraw" ];
     modulesCenter = [ "hyprland/workspaces" ];
-    modulesRight = [ "backlight" "bluetooth" "pulseaudio" "network" "battery" ];
+    modulesRight = [ "network" "bluetooth" "pulseaudio" "battery" ];
 
     extraModules = {
       "custom/logo" = {
         format = "";
         tooltip = false;
-        on-click = "kitty -e --hold fastfetch";
+        on-click = "wlogout"; #TODO: rice powermenu
       };
 
       "custom/powerDraw" = {
@@ -28,20 +29,20 @@
       temperature = {
 	align = 0;
 	justify = "left";
-	hwmon-path = "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon4/temp1_input";
+	thermal-zone = 4; # type = x86_pkg_temp
 	format = " {temperatureC}°C";
 	format-critical = " {temperatureC}°C";
 	interval = 5;
-	critical-threshold = 65;
+	critical-threshold = 80;
       };
 
       bluetooth = {
         align = 0;
         justify = "left";
         controller = "controller1";
-        format = " {status}  ";
+        format = "";
         format-disabled = "";
-        format-connected = " {num_connections}";
+        format-connected = " {device_alias}";
         tooltip-format = "{controller_alias}\t{controller_address}";
         tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
         tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
@@ -52,15 +53,22 @@
         align = 0;
         justify = "left";
         format = "{ifname}";
-        format-wifi = "  {signalStrength}%";
+        format-wifi = "{icon} {essid}";
         format-ethernet = " ";
         format-disconnected = "";
         tooltip-format = "{ifname} via {gwaddr} 󰊗";
         tooltip-format-wifi = "{essid} - {ipaddr}/{cidr}";
         tooltip-format-ethernet = "{ipaddr}/{cidr}";
         tooltip-format-disconnected = "Disconnected";
-        max-length = 50;
+        max-length = 15;
         on-click = "networkmanager_dmenu";
+	format-icons = [
+	  "󰤯 "
+	  "󰤟 "
+	  "󰤢 "
+	  "󰤥 "
+	  "󰤨 "
+	];
       };
 
       battery = {
@@ -68,7 +76,7 @@
         justify = "left";
         interval = 1;
         states = {
-          good = 95;
+          good = 90;
           warning = 30;
           critical = 20;
         };
@@ -84,16 +92,6 @@
           "󰂂"
           "󰁹"
         ];
-      };
-
-      backlight = {
-        align = 0;
-        justify = "left";
-        device = "amdgpu_bl1";
-        format = "{icon} {percent}%";
-        format-icons = [ "" "" ];
-        on-scroll-up = "brightnessctl -q s 5%+";
-        on-scroll-down = "brightnessctl -q s 5%-";
       };
     };
   };

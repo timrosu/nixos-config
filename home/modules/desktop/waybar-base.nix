@@ -14,17 +14,17 @@ in
     };
     modulesLeft = mkOption {
       type = types.listOf types.str;
-      default = [ "clock" "cpu" "memory" "temperature" ];
+      default = [ "hyprland/workspaces" ];
       description = "Modules to display on the left side";
     };
     modulesCenter = mkOption {
       type = types.listOf types.str;
-      default = [ "hyprland/workspaces" ];
+      default = [ "clock" ];
       description = "Modules to display in the center";
     };
     modulesRight = mkOption {
       type = types.listOf types.str;
-      default = [ "pulseaudio" ];
+      default = [ "cpu" "memory" "temperature" "pulseaudio" ];
       description = "Modules to display on the right side";
     };
     extraModules = mkOption {
@@ -45,22 +45,24 @@ in
       settings = {
         main = ({
           layer = "top";
-          position = "left";
+          position = "top";
           modules-left = cfg.modulesLeft;
           modules-center = cfg.modulesCenter;
           modules-right = cfg.modulesRight;
           reload_style_on_change = true;
 
           "hyprland/workspaces" = {
-            format = "{name}";
+	    disable-scroll= false;
+	    on-scroll-up= "hyprctl dispatch workspace r-1";
+	    on-scroll-down= "hyprctl dispatch workspace r+1";
             on-click = "activate";
             sort-by-number = true;
           };
 
           clock = {
-            format = "{:%d.%m.\n%H:%M}";
+            format = "{:%H:%M:%S}";
             interval = 1;
-            tooltip-format = "<small>{:%H:%M:%S}</small>\n<tt><small>{calendar}</small></tt>";
+            tooltip-format = "{:%a, %d.%m.%Y}\n<tt><small>{calendar}</small></tt>";
             calendar-weeks-pos = "right";
             today-format = "<span color='#7645AD'><b><u>{}</u></b></span>";
             format-calendar = "<span color='#aeaeae'><b>{}</b></span>";
@@ -79,10 +81,11 @@ in
           cpu = {
             align = 0;
             justify = "left";
-            format-critical = "<span color='#c20821'><b>󰻠 {usage}%</b></span>";
-            format-high = "<span color='#bb5613'>󰻠 {usage}%</span>";
-            format-medium = "<span color='#a58315'>󰻠 {usage}%</span>";
-            format-low = "<span color='#6b9fa8'>󰻠 {usage}%</span>";
+	    format = "󰻠 {usage}%";
+            # format-critical = "<span color='#c20821'><b>󰻠 {usage}%</b></span>";
+            # format-high = "<span color='#bb5613'>󰻠 {usage}%</span>";
+            # format-medium = "<span color='#a58315'>󰻠 {usage}%</span>";
+            # format-low = "<span color='#6b9fa8'>󰻠 {usage}%</span>";
             interval = 3;
             states = {
               critical = 80;
@@ -96,10 +99,11 @@ in
           memory = {
             align = 0;
             justify = "left";
-            format-critical = "<span color='#c20821'><b>󰍛 {percentage}%</b></span>";
-            format-high = "<span color='#bb5613'>󰍛 {percentage}%</span>";
-            format-medium = "<span color='#a58315'>󰍛 {percentage}%</span>";
-            format-low = "<span color='#6b9fa8'>󰍛 {percentage}%</span>";
+	    format = "󰍛 {percentage}%";
+            # format-critical = "<span color='#c20821'><b>󰍛 {percentage}%</b></span>";
+            # format-high = "<span color='#bb5613'>󰍛 {percentage}%</span>";
+            # format-medium = "<span color='#a58315'>󰍛 {percentage}%</span>";
+            # format-low = "<span color='#6b9fa8'>󰍛 {percentage}%</span>";
             interval = 5;
             states = {
               critical = 80;
@@ -114,10 +118,8 @@ in
             justify = "left";
             format = "{icon}  {volume}%";
             format-bluetooth = "{icon}  {volume}%";
-            format-muted = "";
+            format-muted = "<span foreground='#f38ba8'></span>";
             format-icons = {
-              "alsa_output.pci-0000_00_1f.3.analog-stereo" = "";
-              "alsa_output.pci-0000_00_1f.3.analog-stereo-muted" = "";
               headphone = "";
               "hands-free" = "";
               headset = "";
@@ -125,7 +127,7 @@ in
               "phone-muted" = "";
               portable = "";
               car = "";
-              default = [ "" "" ];
+              default = [ "" "" ];
             };
             scroll-step = 1;
             on-click = "pavucontrol";
@@ -144,141 +146,190 @@ in
       };
 
       style = ''
-        * {
-            border: none;
-            font-size: 14px;
-            font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF" ;
-            min-width: 38px;
-        }
+@define-color base #1e1e2e;
+@define-color mantle #181825;
+@define-color background #13131f;
 
-        window#waybar {
-          background: transparent;
-         }
+@define-color text #cdd6f4;
+@define-color subtext0 #a6adc8;
+@define-color subtext1 #bac2de;
 
-        #custom-logo {
-          padding: 10px 0;
-          color: #5ea1ff;
-        }
+@define-color surface0 #1a1623;
+@define-color surface1 #45475a;
+@define-color surface2 #585b70;
 
-        .modules-right {
-          padding-top: 5px;
-          border-radius: 15px 15px 0 0;
-          background: #000000;
-        }
+@define-color overlay0 #6c7086;
+@define-color overlay1 #7f849c;
+@define-color overlay2 #9399b2;
 
-        .modules-center {
-          padding: 15px 0;
-          border-radius: 15px 15px 15px 15px;
-          background: #000000;
-        }
+@define-color blue #89b4fa;
+@define-color lavender #b4befe;
+@define-color sapphire #74c7ec;
+@define-color sky #89dceb;
+@define-color teal #94e2d5;
+@define-color green #a6e3a1;
+@define-color yellow #f9e2af;
+@define-color peach #fab387;
+@define-color maroon #eba0ac;
+@define-color red #f38ba8;
+@define-color mauve #cba6f7;
+@define-color pink #f5c2e7;
+@define-color flamingo #f2cdcd;
+@define-color rosewater #f5e0dc;
 
-        .modules-left {
-          border-radius: 0 0 15px 15px;
-          background: #000000;
-        }
+* {
+    border: none;
+    font-size: 14px;
+    font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF" ;
+    min-width: 30px;
+}
 
-        #battery,
-        #custom-colorpicker,
-        #custom-powerDraw,
-        #bluetooth,
-        #pulseaudio,
-        #network,
-        #disk,
-        #memory,
-        #backlight,
-        #cpu,
-        #temperature,
-        #custom-weather,
-        #idle_inhibitor,
-        #jack,
-        #tray,
-        #window,
-        #workspaces {
-          padding: 5px 0;
-          color: #6b9fa8
-        }
-        #workspaces button {
-        	margin-left: 0px;
-        	margin-right: 5px;
+window#waybar {
+  background: transparent;
+ }
 
-        	padding-left: 10px;
-        	padding-right: 5px;
-        }
+#custom-logo {
+  color: #5ea1ff;
+}
 
-        #workspaces button:hover {
-        	background-color: rgba(147, 154, 183, 0.2);
-        }
+.modules-right {
+  border-radius: 24px;
+  background: @background;
+  opacity: 0.8;
+}
 
-        #workspaces button.empty {
-        	border: 0px;
+.modules-center {
+  border-radius: 24px;
+  background: @background;
+  opacity: 0.8;
+}
 
-        	padding-right: 0px;
-        }
+.modules-left {
+  border-radius: 24px;
+  background: @background;
+  opacity: 0.8;
+}
 
-        #workspaces button.visible {
-        	background-color: rgba(54, 58, 79, 0.9);
+#battery,
+#custom-colorpicker,
+#custom-powerDraw,
+#bluetooth,
+#pulseaudio,
+#network,
+#disk,
+#memory,
+#backlight,
+#cpu,
+#temperature,
+#custom-weather,
+#idle_inhibitor,
+#jack,
+#tray,
+#window {
+  padding: 5px 5px;
+  color: @text;
+}
 
-        	border: 2px solid @overlay0;
+#workspaces {
+    margin: 5px 5px;
+    padding: 8px 5px;
+    border-radius: 24px;
+}
+#workspaces button {
+    padding: 0px 5px;
+    margin: 0px 3px;
+    border-radius: 24px;
+    color: @overlay2;
+    transition: all 0.3s ease-in-out;
+}
+#workspaces button.active {
+    border-radius: 24px;
+    min-width: 30px;
+    background-size: 300% 300%;
+    transition: all 0.3s ease-in-out;
+    background-color: @base;
+    color: @lavender;
+}
+#workspaces button:hover {
+    border-radius: 24px;
+    min-width: 40px;
+    background-size: 300% 300%;
+    background-color: @surface1;
+    color: @mantle;
+}
 
-        	color: @blue;
-        }
+#clock {
+  padding: 5px 5px;
+  color: #758686;
+}
 
-        #clock {
-          padding: 5px 0;
-          color: #758686;
-        }
+#pulseaudio {
+  padding-left: 3px;
+}
 
-        #pulseaudio {
-          padding-left: 3px;
-        }
+#temperature.critical,
+#pulseaudio.muted {
+  color: #c20821;
+  padding-top: 0;
+}
 
-        #temperature.critical,
-        #pulseaudio.muted {
-          color: #c20821;
-          padding-top: 0;
-        }
+#battery.charging {
+  padding: 5px 5px;
+  color: #ffffff;
+  background-color: #26A65B;
+}
 
-        #battery.charging {
-            color: #ffffff;
-            background-color: #26A65B;
-        }
+#battery.warning:not(.charging) {
+  padding: 5px 5px;
+  background-color: #ffbe61;
+  color: black;
+}
 
-        #battery.warning:not(.charging) {
-            background-color: #ffbe61;
-            color: black;
-        }
-
-        #battery.critical:not(.charging) {
-            background-color: #f53c3c;
-            color: #ffffff;
-            animation-name: blink;
-            animation-duration: 0.5s;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
+#battery.critical:not(.charging) {
+  padding: 5px 5px;
+  background-color: #f53c3c;
+  color: #ffffff;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
 
 
-        @keyframes blink {
-            to {
-                background-color: #ffffff;
-                color: #000000;
-            }
-        }
+/*
+@keyframes blink {
+    to {
+	background-color: #ffffff;
+	color: #000000;
+    }
+}
+*/
       '';
     };
 
     xdg.configFile."waybar/scripts/powerdraw.sh".text = ''
-      #!${pkgs.bash}/bin/bash
+#!${pkgs.bash}/bin/bash
+POWER_DIR="/sys/class/power_supply"
 
-      if [ -f /sys/class/power_supply/BAT*/power_now ]; then
-        powerDraw=" $(($(cat /sys/class/power_supply/BAT*/power_now)/1000000)) W"
-      fi
+for bat in $POWER_DIR/BAT*
+do
+  if [[ -d $bat && $(<$bat/power_now) -ne 0 ]]; then
+    POWER="$(sed -e 's/....$//' -e 's/\(.\)\(.\)$/.\1\2W/' < $bat/power_now || echo 0W)"
+    BATTERY="$(grep -oE 'BAT[0-9]+$' <<< $bat)"
+  fi
+done
 
+if [[ $(<$POWER_DIR/AC/online) -ne 0 ]]
+then
+  ACTION="charging"
+else
+  ACTION="discharging"
+fi
 
-      cat << EOF
-      { "text":"$powerDraw", "tooltip":"power Draw $powerDraw" }
-      EOF
+cat << EOF
+{ "text":" $POWER", "tooltip":"$ACTION $BATTERY" }
+EOF
     '';
 
     xdg.configFile."waybar/scripts/powerdraw.sh".executable = true;

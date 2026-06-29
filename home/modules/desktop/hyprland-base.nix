@@ -34,15 +34,7 @@ let
     };
 
     bind = [
-      {_args = ["SUPER + SHIFT + X" (lua ''hl.dsp.exec_cmd("hyprlock")'')];}
-      {_args = ["SUPER + Q" (lua ''hl.dsp.exec_cmd("kitty")'')];}
-      {_args = ["SUPER + M" (lua ''hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit")'')];}
-      {_args = ["SUPER + E" (lua ''hl.dsp.exec_cmd("kitty yazi")'')];}
-      {_args = ["SUPER + B" (lua ''hl.dsp.exec_cmd("firefox")'')];}
-      {_args = ["SUPER + V" (lua ''hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy")'')];}
-      {_args = ["SUPER + R" (lua ''hl.dsp.exec_cmd("rofi -show drun")'')];}
-      {_args = ["SUPER + W" (lua ''hl.dsp.window.close()'')];}
-
+      ### Window management stuff ###
       # jump to window
       {_args = ["SUPER + h" (lua ''hl.dsp.focus { direction = "l" }'')];}
       {_args = ["SUPER + j" (lua ''hl.dsp.focus { direction = "d" }'')];}
@@ -91,26 +83,55 @@ let
       {_args = ["KP_Up" (lua ''hl.dsp.window.move({ workspace = 8 })'')];}
       {_args = ["KP_Prior" (lua ''hl.dsp.window.move({ workspace = 9 })'')];}
 
+      # move window with mouse
+      {_args = ["SUPER + mouse:272" (lua ''hl.dsp.window.drag()'')];}
+
+      ### apps ###
+      # main
+      {_args = ["SUPER + W" (lua ''hl.dsp.window.close()'')];} # close window
+      {_args = ["SUPER + SHIFT + X" (lua ''hl.dsp.exec_cmd("hyprlock")'')];} # lock the screen
+      {_args = ["SUPER + M" (lua ''hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit")'')];} # idk
+      {_args = ["SUPER + X" (lua ''hl.dsp.exec_cmd("kitty")'')];} # terminal
+      {_args = ["SUPER + B" (lua ''hl.dsp.exec_cmd("firefox")'')];} # browser
+      {_args = ["SUPER + V" (lua ''hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy")'')];} # clipboard history popup
+      {_args = ["SUPER + R" (lua ''hl.dsp.exec_cmd("rofi -show drun")'')];} # rofi
+
       # calculator
       {_args = ["XF86Calculator" (lua ''hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort")'')];}
       {_args = ["SUPER + SHIFT + R" (lua ''hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort")'')];}
 
+      # yazi
+      {_args = ["SUPER + E" (lua ''hl.dsp.exec_cmd("kitty yazi")'')];}
+      {_args = ["SUPER + SHIFT + E" (lua ''hl.dsp.exec_cmd("kitty yazi", { float = true, move = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
+
+      # pulsemixer
+      {_args = ["SUPER + A" (lua ''hl.dsp.exec_cmd("kitty pulsemixer", { float = true, move = {"monitor_w * 0.5", "monitor_h * 0.5"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
+
+      ## bluetooth
+      # rofi
+      {_args = ["SUPER + F10" (lua ''hl.dsp.exec_cmd("kitty rofi-bluetooth")'')];}
+      # tui
+      {_args = ["SUPER + SHIFT + F10" (lua ''hl.dsp.exec_cmd("kitty bluetuith", { float = true, move = {"monitor_w * 0.5", "monitor_h * 0.5"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
+
+      # wifi rofi
+      {_args = ["SUPER + F8" (lua ''hl.dsp.exec_cmd("networkmanager_dmenu")'')];}
+
+      ### custom actions ###
       # change volume
       {_args = ["XF86AudioMute" (lua ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")'') {locked = true;} ];}
       {_args = ["XF86AudioLowerVolume" (lua ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")'') {locked = true; repeating = true;} ];}
       {_args = ["XF86AudioRaiseVolume" (lua ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")'') {locked = true; repeating = true;} ];}
 
-      # media controls
+      ## media controls ##
       # for desktop
       {_args = ["XF86AudioPlay" (lua ''hl.dsp.exec_cmd("playerctl play-pause")'') {locked = true;} ];}
       {_args = ["XF86AudioPrev" (lua ''hl.dsp.exec_cmd("playerctl previous")'') {locked = true;} ];}
       {_args = ["XF86AudioNext" (lua ''hl.dsp.exec_cmd("playerctl next")'') {locked = true;} ];}
       # for my laptop
-      {_args = ["XF86AudioMute" (lua ''hl.dsp.exec_cmd("playerctl play-pause")'') {locked = true;} ];}
-      {_args = ["XF86AudioLowerVolume" (lua ''hl.dsp.exec_cmd("playerctl previous")'') {locked = true;} ];}
-      {_args = ["XF86AudioRaiseVolume" (lua ''hl.dsp.exec_cmd("playerctl next")'') {locked = true;} ];}
+      {_args = ["SHIFT + XF86AudioMute" (lua ''hl.dsp.exec_cmd("playerctl play-pause")'') {locked = true;} ];}
+      {_args = ["SHIFT + XF86AudioLowerVolume" (lua ''hl.dsp.exec_cmd("playerctl previous")'') {locked = true;} ];}
+      {_args = ["SHIFT + XF86AudioRaiseVolume" (lua ''hl.dsp.exec_cmd("playerctl next")'') {locked = true;} ];}
 
-      {_args = ["SUPER + mouse:272" (lua ''hl.dsp.window.drag()'')];}
     ];
 
     on = [
@@ -169,6 +190,8 @@ in
       cliphist 
       playerctl 
       pavucontrol
+      pulsemixer
+      bluetuith
     ];
   };
 }
