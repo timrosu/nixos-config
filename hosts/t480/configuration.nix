@@ -1,17 +1,16 @@
-{ config, pkgs, inputs, vars, ... }:
+{ config, pkgs, vars, inputs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
+    ./battery.nix
     ../../modules/common.nix
     ../../modules/shell.nix
     ../../modules/desktop/hyprland.nix
     ../../modules/sudo.nix
     ../../modules/utilities.nix
     ../../modules/virtual-machines/libvirt.nix
-
     ../../modules/hardware/intel/intel-qsv.nix
-    ../../modules/hardware/intel/efficiency.nix
   ];
 
     # Boot configuration
@@ -42,6 +41,12 @@
 
   boot.kernelModules = [ "drivetemp" ];  # for reading HDD temps
   users.users.${vars.username}.extraGroups = [ "dialout" ]; # for flashing microcontrolers
+
+  services."06cb-009a-fingerprint-sensor" = {                                 
+    enable = true;                                                            
+    backend = "libfprint-tod";                                                
+    calib-data-file = ./calib-data.bin;                
+  };
 
   system.stateVersion = "26.05";
 }

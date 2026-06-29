@@ -9,9 +9,20 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-06cb-009a-fingerprint-sensor = {
+      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=24.11";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, yazi, ... }@inputs: let
+  outputs = { 
+    self,
+    nixpkgs,
+    home-manager,
+    nixvim,
+    yazi,
+    nixos-06cb-009a-fingerprint-sensor,
+    ...
+  }@inputs: let
       vars = import ./vars.nix;
     in {
       nixosConfigurations = {
@@ -22,6 +33,7 @@
             ./hosts/t480/configuration.nix
 	    nixvim.nixosModules.nixvim
 	    ./modules/nixvim.nix
+	    nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
