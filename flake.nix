@@ -12,6 +12,10 @@
     nixos-06cb-009a-fingerprint-sensor = {
       url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=24.11";
     };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { 
@@ -21,6 +25,7 @@
     nixvim,
     yazi,
     nixos-06cb-009a-fingerprint-sensor,
+    nixos-hardware,
     ...
   }@inputs: let
       vars = import ./vars.nix;
@@ -34,6 +39,7 @@
 	    nixvim.nixosModules.nixvim
 	    ./modules/nixvim.nix
 	    nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
+	    nixos-hardware.nixosModules.lenovo-thinkpad-t480
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
