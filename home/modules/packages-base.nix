@@ -5,7 +5,6 @@
     fd
     fastfetch
     acpi
-    intel-gpu-tools
     upower
   ];
 }
