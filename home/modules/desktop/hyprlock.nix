@@ -22,8 +22,8 @@ in
 
         general = {
           hide_cursor = false;
+	  enable_fingerprint = true;
         };
-
 
         animations = {
           enabled = true;

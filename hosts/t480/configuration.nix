@@ -47,6 +47,7 @@
     backend = "libfprint-tod";                                                
     calib-data-file = ./calib-data.bin;                
   };
+  security.pam.services.login.fprintAuth = true;
 
   system.stateVersion = "26.05";
 }
