@@ -48,6 +48,8 @@
     calib-data-file = ./calib-data.bin;                
   };
   security.pam.services.login.fprintAuth = true;
+  security.pam.services.sudo.fprintAuth = true;
+  security.pam.hyprlock.login.fprintAuth = true;
 
   system.stateVersion = "26.05";
 }
