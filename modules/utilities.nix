@@ -18,5 +18,6 @@
     screen
     jq
     linuxPackages.turbostat
+    ttyplot
   ];
 }

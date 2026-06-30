@@ -19,12 +19,8 @@
 	    command = "/run/current-system/sw/bin/auto-cpufreq --force performance, /run/current-system/sw/bin/auto-cpufreq --force powersave, /run/current-system/sw/bin/auto-cpufreq --force reset";
             options = [ "NOPASSWD" ];
 	  }
-	  { # enable reboot
-	    command = "/run/current-system/sw/bin/systemctl reboot";
-	    options = [ "NOPASSWD" ];
-	  }
 	  {
-	    command = "turbostat";
+	    command = "/run/current-system/sw/bin/turbostat";
 	    options = [ "NOPASSWD" ];
 	  }
         ];
