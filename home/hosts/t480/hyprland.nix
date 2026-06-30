@@ -9,6 +9,7 @@ in
     ./waybar.nix
     ../../modules/desktop/hypridle.nix
     ../../modules/desktop/hyprshot.nix
+    ../../modules/desktop/hyprpolkitagent.nix
   ];
   wayland.hyprland = {
     settings = {
