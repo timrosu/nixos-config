@@ -95,6 +95,7 @@ let
       {_args = ["SUPER + B" (lua ''hl.dsp.exec_cmd("firefox")'')];} # browser
       {_args = ["SUPER + V" (lua ''hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy")'')];} # clipboard history popup
       {_args = ["SUPER + R" (lua ''hl.dsp.exec_cmd("rofi -show drun")'')];} # rofi
+      {_args = ["SUPER + ESCAPE" (lua ''hl.dsp.exec_cmd("wlogout")'')];} # powermenu
 
       # calculator
       {_args = ["XF86Calculator" (lua ''hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort")'')];}
