@@ -12,6 +12,14 @@
       STOP_CHARGE_THRESH_BAT1 = 90;
     };
   };
+  services.upower = {
+    enable = true;
+    usePercentageForPolicy = true;
+    percentageLow = 20;
+    percentageCritical = 8;
+    percentageAction = 5;
+    criticalPowerAction = "HybridSleep";
+  };
 
   # fan curve
   services.thinkfan = {
@@ -75,11 +83,13 @@
     enable = true;
     settings = {
       battery = {
-	governor = "ondemand";
+	governor = "powersave";
+	energy_performance_preference = "balance_power";
 	turbo = "auto";
       };
       charger = {
-	governor = "conservative";
+	governor = "powersave";
+	energy_performance_preference = "performance";
 	turbo = "auto";
       };
     };
@@ -161,22 +171,6 @@
       UNCORE: -85
       # Analog I/O voltage offset (mV)
       ANALOGIO: 0
-      
-      # [ICCMAX.AC]
-      # # CPU core max current (A)
-      # CORE: 
-      # # Integrated GPU max current (A)
-      # GPU: 
-      # # CPU cache max current (A)
-      # CACHE: 
-      
-      # [ICCMAX.BATTERY]
-      # # CPU core max current (A)
-      # CORE: 
-      # # Integrated GPU max current (A)
-      # GPU: 
-      # # CPU cache max current (A)
-      # CACHE: 
     '';
   };
 }

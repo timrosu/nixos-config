@@ -315,7 +315,7 @@ POWER_DIR="/sys/class/power_supply"
 for bat in $POWER_DIR/BAT*
 do
   if [[ -d $bat && $(<$bat/power_now) -ne 0 ]]; then
-    POWER="$(sed -e 's/....$//' -e 's/\(.\)\(.\)$/.\1\2W/' < $bat/power_now || echo 0W)"
+    POWER="$(sed -e 's/....$//' -e 's/\(.\)\(.\)$/.\1\2W/' < $bat/power_now)"
     BATTERY="$(grep -oE 'BAT[0-9]+$' <<< $bat)"
   fi
 done
@@ -326,6 +326,8 @@ then
 else
   ACTION="discharging"
 fi
+
+if [[ $POWER -eq 0 ]]; then POWER="0W"; fi
 
 cat << EOF
 { "text":" $POWER", "tooltip":"$ACTION $BATTERY" }
