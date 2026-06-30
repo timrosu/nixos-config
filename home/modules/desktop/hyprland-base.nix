@@ -132,6 +132,11 @@ let
       {_args = ["SHIFT + XF86AudioLowerVolume" (lua ''hl.dsp.exec_cmd("playerctl previous")'') {locked = true;} ];}
       {_args = ["SHIFT + XF86AudioRaiseVolume" (lua ''hl.dsp.exec_cmd("playerctl next")'') {locked = true;} ];}
 
+      ## cpu power overrides ##
+      {_args = ["XF86Favorites" (lua ''hl.dsp.exec_cmd("sudo auto-cpufreq --force performance")'') {locked = true;} ];}
+      {_args = ["SHIFT + XF86Favorites" (lua ''hl.dsp.exec_cmd("sudo auto-cpufreq --force reset")'') {locked = true;} ];}
+      {_args = ["CTRL + XF86Favorites" (lua ''hl.dsp.exec_cmd("sudo auto-cpufreq --force powersave")'') {locked = true;} ];}
+
     ];
 
     on = [

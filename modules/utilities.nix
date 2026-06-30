@@ -17,5 +17,6 @@
     smartmontools  # smartctl
     screen
     jq
+    linuxPackages.turbostat
   ];
 }

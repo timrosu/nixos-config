@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
-    ./battery.nix
+    ./power.nix
     ../../modules/common.nix
     ../../modules/shell.nix
     ../../modules/desktop/hyprland.nix

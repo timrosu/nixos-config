@@ -13,8 +13,20 @@
         commands = [
           {
             command = "/run/current-system/sw/bin/nixos-rebuild"; 
-            options = [ "NOPASSWD" ]; # run rebuild without sudo
+            options = [ "NOPASSWD" ];
           }
+	  { # enable overriding cpu power config
+	    command = "/run/current-system/sw/bin/auto-cpufreq --force performance, /run/current-system/sw/bin/auto-cpufreq --force powersave, /run/current-system/sw/bin/auto-cpufreq --force reset";
+            options = [ "NOPASSWD" ];
+	  }
+	  { # enable reboot
+	    command = "/run/current-system/sw/bin/systemctl reboot";
+	    options = [ "NOPASSWD" ];
+	  }
+	  {
+	    command = "turbostat";
+	    options = [ "NOPASSWD" ];
+	  }
         ];
       }
     ];
