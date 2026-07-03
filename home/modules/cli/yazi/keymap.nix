@@ -447,6 +447,11 @@
 	desc = "Goto ~/nix-conf";
       }
       {
+	on = ["g" "s"];
+	run = "cd ~/Documents/school";
+	desc = "Goto school dir";
+      }
+      {
         on = ["g" "c"];
         run = "cd ~/.config";
         desc = "Goto ~/.config";
