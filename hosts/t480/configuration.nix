@@ -42,6 +42,7 @@
   boot.kernelModules = [ "drivetemp" ];  # for reading HDD temps
   users.users.${vars.username}.extraGroups = [ "dialout" ]; # for flashing microcontrolers
 
+# fingerprint sensor
   services."06cb-009a-fingerprint-sensor" = {                                 
     enable = true;                                                            
     backend = "libfprint-tod";                                                
@@ -49,7 +50,6 @@
   };
   security.pam.services.login.fprintAuth = true;
   security.pam.services.sudo.fprintAuth = true;
-  security.pam.hyprlock.login.fprintAuth = true;
 
   system.stateVersion = "26.05";
 }
