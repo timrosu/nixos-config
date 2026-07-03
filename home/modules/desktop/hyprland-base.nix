@@ -83,20 +83,26 @@ let
       {_args = ["KP_Up" (lua ''hl.dsp.window.move({ workspace = 8 })'')];}
       {_args = ["KP_Prior" (lua ''hl.dsp.window.move({ workspace = 9 })'')];}
 
+      # trigger floating window
+      {_args = ["SUPER + SHIFT + F" (lua ''hl.dsp.window.center()'')];}
+
       # move window with mouse
       {_args = ["SUPER + mouse:272" (lua ''hl.dsp.window.drag()'')];}
 
       ### apps ###
       # main
       {_args = ["SUPER + W" (lua ''hl.dsp.window.close()'')];} # close window
-      {_args = ["SUPER + SHIFT + X" (lua ''hl.dsp.exec_cmd("hyprlock")'')];} # lock the screen
+      {_args = ["SUPER + ALT + X" (lua ''hl.dsp.exec_cmd("hyprlock")'')];} # lock the screen
       {_args = ["SUPER + M" (lua ''hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit")'')];} # idk
-      {_args = ["SUPER + X" (lua ''hl.dsp.exec_cmd("kitty")'')];} # terminal
       {_args = ["SUPER + B" (lua ''hl.dsp.exec_cmd("firefox")'')];} # browser
       {_args = ["SUPER + V" (lua ''hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy")'')];} # clipboard history popup
       {_args = ["SUPER + R" (lua ''hl.dsp.exec_cmd("rofi -show drun")'')];} # rofi
       {_args = ["SUPER + ESCAPE" (lua ''hl.dsp.exec_cmd("wlogout")'')];} # powermenu
 
+      # terminal
+      {_args = ["SUPER + X" (lua ''hl.dsp.exec_cmd("kitty")'')];} # terminal
+      {_args = ["SUPER + SHIFT + X" (lua ''hl.dsp.exec_cmd("kitty")''){ float = true; } ];} # terminal
+      
       # calculator
       {_args = ["XF86Calculator" (lua ''hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort")'')];}
       {_args = ["SUPER + SHIFT + R" (lua ''hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort")'')];}
@@ -110,7 +116,7 @@ let
 
       ## bluetooth
       # rofi
-      {_args = ["SUPER + F10" (lua ''hl.dsp.exec_cmd("kitty rofi-bluetooth")'')];}
+      {_args = ["SUPER + F10" (lua ''hl.dsp.exec_cmd("rofi-bluetooth")'')];}
       # tui
       {_args = ["SUPER + SHIFT + F10" (lua ''hl.dsp.exec_cmd("kitty bluetuith", { float = true, move = {"monitor_w * 0.5", "monitor_h * 0.5"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
 
