@@ -1,9 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, vars, ... }:
 
 with lib;
 
 let
   cfg = config.wayland.waybar;
+  prog = vars.programs;
 in
 {
   options.wayland.waybar = {
@@ -61,8 +62,9 @@ in
 
           clock = {
             format = "{:%H:%M:%S}";
+	    format-alt = "{:%H:%M:%S} {:%a, %d.%m.%Y}";
             interval = 1;
-            tooltip-format = "{:%a, %d.%m.%Y}\n<tt><small>{calendar}</small></tt>";
+            tooltip-format = "<tt><small>{calendar}</small></tt>";
             calendar-weeks-pos = "right";
             today-format = "<span color='#7645AD'><b><u>{}</u></b></span>";
             format-calendar = "<span color='#aeaeae'><b>{}</b></span>";
@@ -93,7 +95,7 @@ in
               medium = 10;
               low = 0;
             };
-            on-click = "kitty btop";
+            on-click = "${prog.terminal} btop";
           };
 
           memory = {

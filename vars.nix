@@ -6,7 +6,7 @@ in {
   inherit username;
   fullName = "Tim";
 
-  net = (import ./net.nix { inherit secrets; }).net;
+  net = (import ./net.nix { inherit secrets; });
 
   dir = {
     home = homeDir;
@@ -18,6 +18,20 @@ in {
     scripts = "${homeDir}/scripts";
     certs = "${homeDir}/certs";
     docker_root = "${homeDir}/docker";
+  };
+
+  # default programs
+  programs = {
+    terminal = "kitty";
+    browser = {
+      pri = "firefox";
+      sec = "qutebrowser";
+    };
+    filemanager = {
+      cli = "yazi";
+      gui = "pcmanfm";
+    };
+    powermenu = "wlogout";
   };
 
   email = {

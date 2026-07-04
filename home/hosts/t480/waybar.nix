@@ -24,12 +24,13 @@
         interval = 1;
         exec = "~/.config/waybar/scripts/powerdraw.sh";
         return-type = "json";
+	on-click = ''dunstify -u low -a acpi "$(acpi)"'';
       };
 
       temperature = {
 	align = 0;
 	justify = "left";
-	thermal-zone = 4; # type = x86_pkg_temp
+	thermal-zone = 4; # type: x86_pkg_temp
 	format = " {temperatureC}°C";
 	format-critical = " {temperatureC}°C";
 	interval = 5;

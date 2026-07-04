@@ -10,7 +10,8 @@
     filezilla
     gimp
     pkgs.onlyoffice-desktopeditors
-    vlc
+    # vlc
+    mpv
     imv
     imagemagick
     rofi-bluetooth
@@ -22,5 +23,6 @@
     qutebrowser
     mitmproxy
     whatweb
+    pcmanfm
   ];
 }

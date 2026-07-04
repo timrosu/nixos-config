@@ -22,9 +22,4 @@
     ../../modules/cli/btop.nix
     ../../modules/cli/lazygit.nix
   ];
-
-  # services.gnome-keyring = {
-  #   enable = true;
-  # };
-
 }
