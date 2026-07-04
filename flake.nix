@@ -16,6 +16,10 @@
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { 
@@ -26,6 +30,7 @@
     yazi,
     nixos-06cb-009a-fingerprint-sensor,
     nixos-hardware,
+    stylix,
     ...
   }@inputs: let
       vars = import ./vars.nix;
@@ -35,9 +40,10 @@
           system = "x86_64-linux";
 	  specialArgs = { inherit inputs vars self; };
           modules = [
+	    stylix.nixosModules.stylix
             ./hosts/t480/configuration.nix
 	    nixvim.nixosModules.nixvim
-	    ./modules/nixvim.nix
+	    ./modules/nixvim/default.nix
 	    nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
 	    nixos-hardware.nixosModules.lenovo-thinkpad-t480
             home-manager.nixosModules.home-manager
