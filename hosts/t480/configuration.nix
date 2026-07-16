@@ -46,7 +46,7 @@
   services."06cb-009a-fingerprint-sensor" = {                                 
     enable = true;                                                            
     backend = "libfprint-tod";                                                
-    calib-data-file = ./calib-data.bin;                
+    calib-data-file = ./fp-calib-data.bin;                
   };
   security.pam.services.login.fprintAuth = true;
   security.pam.services.sudo.fprintAuth = true;
