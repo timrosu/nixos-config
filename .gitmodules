@@ -1,0 +1,3 @@
+[submodule "secrets"]
+	path = secrets
+	url = ssh://git@gitlab.com/timrosu/nix-secrets.git
