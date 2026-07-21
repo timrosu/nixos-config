@@ -1,4 +1,9 @@
 { pkgs, perSystem }:
+{
+  systems = [
+    "x86_64-linux"
+  ];
+}
 pkgs.mkShellNoCC {
   packages = [
     perSystem.sops-nix.default
