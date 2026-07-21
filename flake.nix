@@ -18,19 +18,13 @@
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { 
-    self,
-    nixpkgs,
-    home-manager,
-    nixvim,
-    yazi,
-    nixos-06cb-009a-fingerprint-sensor,
-    nixos-hardware,
-    stylix,
-    ...
-  }@inputs: let
+  outputs = inputs@{ ... }: let
       vars = import ./vars.nix;
     in {
       nixosConfigurations = {
@@ -38,13 +32,14 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs vars self; };
           modules = [
-            stylix.nixosModules.stylix
-            nixvim.nixosModules.nixvim
-            nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
-            nixos-hardware.nixosModules.lenovo-thinkpad-t480
-            home-manager.nixosModules.home-manager
+            inputs.stylix.nixosModules.stylix
+            inputs.nixvim.nixosModules.nixvim
+            inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
+            inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
+            inputs.home-manager.nixosModules.home-manager
             ./modules/nixvim/default.nix
             ./hosts/t480/configuration.nix
+            sops-nix.nixosModules.sops
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
