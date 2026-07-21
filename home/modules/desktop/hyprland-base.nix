@@ -23,8 +23,9 @@ let
       };
 
       decoration = {
-        rounding = 10;
-        blur = { enabled = true; size = 3; passes = 1; };
+        rounding = 2;
+        blur = { enabled = false; size = 3; passes = 1; };
+        shadow = { enabled = false; };
       };
 
       input = {
