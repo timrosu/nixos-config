@@ -9,9 +9,7 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-06cb-009a-fingerprint-sensor = {
-      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=24.11";
-    };
+    nixos-06cb-009a-fingerprint-sensor.url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=24.11";
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,15 +36,15 @@
       nixosConfigurations = {
         t480 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-	  specialArgs = { inherit inputs vars self; };
+          specialArgs = { inherit inputs vars self; };
           modules = [
-	    stylix.nixosModules.stylix
-            ./hosts/t480/configuration.nix
-	    nixvim.nixosModules.nixvim
-	    ./modules/nixvim/default.nix
-	    nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
-	    nixos-hardware.nixosModules.lenovo-thinkpad-t480
+            stylix.nixosModules.stylix
+            nixvim.nixosModules.nixvim
+            nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
+            nixos-hardware.nixosModules.lenovo-thinkpad-t480
             home-manager.nixosModules.home-manager
+            ./modules/nixvim/default.nix
+            ./hosts/t480/configuration.nix
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
