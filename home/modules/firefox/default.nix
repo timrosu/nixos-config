@@ -41,6 +41,7 @@ in {
         "browser.translations.neverTranslateLanguages" = "sl";
         "devtools.toolbox.host" = "right";
 	      # "browser.startup.homepage" = "https://home.${vars.net.domain}";
+        "reader.parse-on-load.force-enabled" = true;
       };
       search = search_engines;
     };
