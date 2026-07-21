@@ -36,6 +36,59 @@ let
       };
     };
 
+    gesture = [
+      { # resize current window
+        fingers = 2;
+        direction = "pinch";
+        mode = "live";
+        mods = "SHIFT";
+        action = "resize";
+      }
+      { # resize mouse cursor
+        fingers = 2;
+        direction = "pinch";
+        mode = "live";
+        mods = "SUPER";
+        action = "cursor_zoom";
+      }
+
+      { # switch workspaces
+        fingers = 3;
+        direction = "horizontal";
+        action = "workspace";
+      }
+      { # toggle scratchpad 
+        fingers = 3;
+        direction = "down";
+        action = "special";
+        workspace_name = "magic";
+      }
+
+      { # maximize current window
+        fingers = 3;
+        direction = "up";
+        action = "fullscreen";
+        mode = "maximize";
+      }
+      { # toggle fullscreen
+        fingers = 3;
+        direction = "pinchout";
+        action = "fullscreen";
+        mode = "fullscreen";
+      }
+      { # toggle float
+        fingers = 3;
+        direction = "pinchin";
+        action = "float";
+        mode = "float";
+      }
+      { # launch terminal
+        fingers = 4;
+        direction = "up";
+        action = (lua ''function() hl.dsp.exec_cmd("${prog.terminal}") end'');
+      }
+    ];
+
     bind = [
       ### Window management stuff ###
       # jump to window
