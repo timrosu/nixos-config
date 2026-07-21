@@ -2,6 +2,8 @@
 
 let 
   lua = lib.generators.mkLuaInline;
+  deskmon1 = "LG Electronics LG ULTRAGEAR 201MAUAH4462";
+  deskmon2 = "Dell Inc. S2419HGF 4XWK7P2";
 in 
 {
 
@@ -15,21 +17,21 @@ in
     settings = {
       monitor = [
         {
-          output = "desc:LG Electronics LG ULTRAWIDE 0x01010101";
-          mode = "2560x1080@75";
+          output = "desc:${deskmon1}";
+          mode = "2560x1440@180"; # runs on 60 hz on lenovo usb dock
           position = "0x0";
           scale = 1;
         }
         {
-          output = "desc:LG Electronics LG ULTRAWIDE 0x00037CB8";
-          mode = "2560x1080@75";
+          output = "desc:${deskmon2}";
+          mode = "1920x1080@144";
           position = "2560x0";
           scale = 1;
         }
         {
           output = "eDP-1";
           mode = "1920x1080@60";
-          position = "0x1080";
+          position = "4480x0";
           scale = 1;
         }
       ];
@@ -44,7 +46,7 @@ in
                 hl.exec_cmd("kdeconnect-indicator")
               end
             '')
-	  ];
+          ];
         }
       ];
 
@@ -59,34 +61,34 @@ in
       workspace_rule = [
         {
           workspace = "1";
-          monitor = "desc:LG Electronics LG ULTRAWIDE 0x01010101";
+          monitor = "desc:${deskmon1}";
           default = true;
           persistent = true;
         }
         {
           workspace = "2";
-          monitor = "desc:LG Electronics LG ULTRAWIDE 0x01010101";
+          monitor = "desc:${deskmon1}";
           persistent = true;
         }
         {
           workspace = "3";
-          monitor = "desc:LG Electronics LG ULTRAWIDE 0x01010101";
+          monitor = "desc:${deskmon1}";
           persistent = true;
         }
         {
           workspace = "4";
-          monitor = "desc:LG Electronics LG ULTRAWIDE 0x00037CB8";
+          monitor = "desc:${deskmon2}";
           default = true;
           persistent = true;
         }
         {
           workspace = "5";
-          monitor = "desc:LG Electronics LG ULTRAWIDE 0x00037CB8";
+          monitor = "desc:${deskmon2}";
           persistent = true;
         }
         {
           workspace = "6";
-          monitor = "desc:LG Electronics LG ULTRAWIDE 0x00037CB8";
+          monitor = "desc:${deskmon2}";
           persistent = true;
         }
         {
