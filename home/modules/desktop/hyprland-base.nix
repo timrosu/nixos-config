@@ -32,6 +32,7 @@ let
         kb_layout = "us";
         follow_mouse = 1;
         touchpad.natural_scroll = true;
+        kb_options = "caps:swapescape";
       };
     };
 
@@ -97,10 +98,11 @@ let
       {_args = ["SUPER + ALT + X" (lua ''hl.dsp.exec_cmd("hyprlock")'')];} # lock the screen
       {_args = ["SUPER + M" (lua ''hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit")'')];} # idk
       {_args = ["SUPER + V" (lua ''hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy")'')];} # clipboard history popup
-      {_args = ["SUPER + R" (lua ''hl.dsp.exec_cmd("rofi -show drun")'')];} # rofi
+      {_args = ["SUPER + R" (lua ''hl.dsp.exec_cmd("rofi -show run")'')];} # rofi
+      {_args = ["SUPER + Q" (lua ''hl.dsp.exec_cmd("rofi -show combi -modes combi -combi-modes 'window,drun,run'")'')];} # rofi
 
       # powermenu
-      {_args = ["SUPER + ESCAPE" (lua ''hl.dsp.exec_cmd("${prog.powermenu}")'')];}
+      {_args = ["SUPER + ESCAPE" (lua ''hl.dsp.exec_cmd("${prog.powermenu}")'') { locked = true; } ];}
 
       # browser
       {_args = ["SUPER + B" (lua ''hl.dsp.exec_cmd("${prog.browser.pri}")'')];}
@@ -108,7 +110,7 @@ let
 
       # terminal
       {_args = ["SUPER + X" (lua ''hl.dsp.exec_cmd("${prog.terminal}")'')];} # terminal
-      {_args = ["SUPER + SHIFT + X" (lua ''hl.dsp.exec_cmd("${prog.terminal}")''){ float = true; } ];} # terminal
+      {_args = ["SUPER + SHIFT + X" (lua ''hl.dsp.exec_cmd("${prog.terminal}")'') { float = true; } ];} # terminal
       
       # calculator
       {_args = ["XF86Calculator" (lua ''hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort")'')];}
