@@ -28,9 +28,9 @@
       vars = import ./vars.nix;
     in {
       nixosConfigurations = {
-        t480 = nixpkgs.lib.nixosSystem {
+        t480 = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs vars self; };
+          specialArgs = { inherit inputs vars ; };
           modules = [
             inputs.stylix.nixosModules.stylix
             inputs.nixvim.nixosModules.nixvim
@@ -39,7 +39,7 @@
             inputs.home-manager.nixosModules.home-manager
             ./modules/nixvim/default.nix
             ./hosts/t480/configuration.nix
-            sops-nix.nixosModules.sops
+            inputs.sops-nix.nixosModules.sops
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
