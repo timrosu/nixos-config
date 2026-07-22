@@ -86,20 +86,25 @@ let
 
     bind = [
       ### Window management stuff ###
-      # jump to window
+      # jump across windows
       {_args = ["SUPER + h" (lua ''hl.dsp.focus { direction = "l" }'')];}
       {_args = ["SUPER + j" (lua ''hl.dsp.focus { direction = "d" }'')];}
       {_args = ["SUPER + k" (lua ''hl.dsp.focus { direction = "u" }'')];}
       {_args = ["SUPER + l" (lua ''hl.dsp.focus { direction = "r" }'')];}
+      
+      # cycle windows
+      {_args = ["SUPER + c" (lua ''hl.dsp.window.cycle_next { next = false }'')];}
+      {_args = ["SUPER + SHIFT + c" (lua ''hl.dsp.window.cycle_next'')];}
 
       # resize window
-      {_args = ["SUPER + ALT + h" (lua ''hl.dsp.window.resize({ x = -60, y = 0, relative = true })'') {repeating = true;}];}
-      {_args = ["SUPER + ALT + j" (lua ''hl.dsp.window.resize({ x = 0, y = 60, relative = true })'')  {repeating = true;}];}
-      {_args = ["SUPER + ALT + k" (lua ''hl.dsp.window.resize({ x = 0, y = -60, relative = true })'') {repeating = true;}];}
-      {_args = ["SUPER + ALT + l" (lua ''hl.dsp.window.resize({ x = 60, y = 0, relative = true })'') {repeating = true;}];}
+      {_args = ["SUPER + ALT + h" (lua ''hl.dsp.window.resize({ x = -40, y = 0, relative = true })'') {repeating = true;}];}
+      {_args = ["SUPER + ALT + j" (lua ''hl.dsp.window.resize({ x = 0, y = 40, relative = true })'')  {repeating = true;}];}
+      {_args = ["SUPER + ALT + k" (lua ''hl.dsp.window.resize({ x = 0, y = -40, relative = true })'') {repeating = true;}];}
+      {_args = ["SUPER + ALT + l" (lua ''hl.dsp.window.resize({ x = 40, y = 0, relative = true })'') {repeating = true;}];}
 
-      # jump to workspace
-      {_args = ["SUPER + SHIFT + 1" (lua ''hl.dsp.window.move({ workspace = "1" })'')];}
+      # move window to workspace
+      # absolute
+      {_args = ["SUPER + SHIFT + 1" (lua ''hl.dsp.window.move({ workspace = 1 })'')];}
       {_args = ["SUPER + SHIFT + 2" (lua ''hl.dsp.window.move({ workspace = 2 })'')];}
       {_args = ["SUPER + SHIFT + 3" (lua ''hl.dsp.window.move({ workspace = 3 })'')];}
       {_args = ["SUPER + SHIFT + 4" (lua ''hl.dsp.window.move({ workspace = 4 })'')];}
@@ -108,12 +113,12 @@ let
       {_args = ["SUPER + SHIFT + 7" (lua ''hl.dsp.window.move({ workspace = 7 })'')];}
       {_args = ["SUPER + SHIFT + 8" (lua ''hl.dsp.window.move({ workspace = 8 })'')];}
       {_args = ["SUPER + SHIFT + 9" (lua ''hl.dsp.window.move({ workspace = 9 })'')];}
+      # relative
+      {_args = ["SUPER + SHIFT + bracketleft" (lua ''hl.dsp.window.move({ workspace = "r-1" })'')];}
+      {_args = ["SUPER + SHIFT + bracketright" (lua ''hl.dsp.window.move({ workspace = "r+1" })'')];}
 
-      # scratchpad
-      {_args = ["SUPER + S" (lua ''hl.dsp.workspace.toggle_special("magic")'')];}
-      {_args = ["SUPER + SHIFT + S" (lua ''hl.dsp.window.move({ workspace = "special:magic" })'')];}
-
-      # move window to workspace
+      # jump to workspace
+      # absolute
       {_args = ["SUPER + 1" (lua ''hl.dsp.focus { workspace = 1 }'')];}
       {_args = ["SUPER + 2" (lua ''hl.dsp.focus { workspace = 2 }'')];}
       {_args = ["SUPER + 3" (lua ''hl.dsp.focus { workspace = 3 }'')];}
@@ -123,16 +128,20 @@ let
       {_args = ["SUPER + 7" (lua ''hl.dsp.focus { workspace = 7 }'')];}
       {_args = ["SUPER + 8" (lua ''hl.dsp.focus { workspace = 8 }'')];}
       {_args = ["SUPER + 9" (lua ''hl.dsp.focus { workspace = 9 }'')];}
+      # relative
+      {_args = ["SUPER + bracketleft" (lua ''hl.dsp.focus({ workspace = "-1" })'')];}
+      {_args = ["SUPER + bracketright" (lua ''hl.dsp.focus({ workspace = "+1" })'')];}
 
-      {_args = ["KP_End" (lua ''hl.dsp.window.move({ workspace = 1 })'')];}
-      {_args = ["KP_Down" (lua ''hl.dsp.window.move({ workspace = 2 })'')];}
-      {_args = ["KP_Next" (lua ''hl.dsp.window.move({ workspace = 3 })'')];}
-      {_args = ["KP_Left" (lua ''hl.dsp.window.move({ workspace = 4 })'')];}
-      {_args = ["KP_Begin" (lua ''hl.dsp.window.move({ workspace = 5 })'')];}
-      {_args = ["KP_Right" (lua ''hl.dsp.window.move({ workspace = 6 })'')];}
-      {_args = ["KP_Home" (lua ''hl.dsp.window.move({ workspace = 7 })'')];}
-      {_args = ["KP_Up" (lua ''hl.dsp.window.move({ workspace = 8 })'')];}
-      {_args = ["KP_Prior" (lua ''hl.dsp.window.move({ workspace = 9 })'')];}
+      # scratchpad
+      {_args = ["SUPER + S" (lua ''hl.dsp.workspace.toggle_special("magic")'')];}
+      {_args = ["SUPER + SHIFT + S" (lua ''hl.dsp.window.move({ workspace = "special:magic" })'')];}
+
+      # jump to previous workspace
+      {_args = ["SUPER + TAB" (lua ''hl.dsp.focus({ workspace = "previous" })'')];}
+      {_args = ["SUPER + SHIFT + TAB" (lua ''hl.dsp.focus({ workspace = "previous_per_monitor"; on_current_monitor = true })'')];}
+      # jump to previous window
+      {_args = ["SUPER + grave" (lua ''hl.dsp.focus({ last = true })'')];}
+      {_args = ["SUPER + SHIFT + grave" (lua ''hl.dsp.focus({ last = true; on_current_monitor = true })'')];}
 
       # set window mode
       {_args = ["SUPER + T" (lua ''hl.dsp.window.center()'')];} # tiling
@@ -144,7 +153,7 @@ let
       # mouse magic
       {_args = ["SUPER + mouse:272" (lua ''hl.dsp.window.drag()'')];} # drag window
       {_args = ["SUPER + SHIFT + mouse:272" (lua ''hl.dsp.window.resize()'')];} # resize window
-      # {_args = ["SUPER + mouse:272" (lua ''hl.dsp.window.resize()'')];} # pointer zoom
+      # {_args = ["SUPER + mouse:272" (lua ''hl.dsp.window.resize()'')];} # TODO: pointer zoom
 
       ### apps ###
       # main
