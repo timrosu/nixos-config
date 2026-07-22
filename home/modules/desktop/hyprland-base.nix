@@ -138,9 +138,9 @@ let
       # set window mode
       {_args = ["SUPER + T" (lua ''hl.dsp.window.center()'')];} # tiling
       {_args = ["SUPER + SHIFT + T" (lua ''hl.dsp.window.pseudo( {action = "toggle" })'')];} # pseudo tiling
-      {_args = ["SUPER + SHIFT + F" (lua ''hl.dsp.window.float({ action = "toggle" }); hl.dsp.window.center()'')];} # floating
-      {_args = ["SUPER + F" (lua ''hl.dsp.window.fullscreen({ mode = "fullscreen"; action = "toggle")'')];} # fullscreen
-      {_args = ["SUPER + M" (lua ''hl.dsp.window.fullscreen({ mode = "maximized"; action = "toggle")'')];} # maximized
+      {_args = ["SUPER + SHIFT + F" (lua ''function() hl.dsp.window.float({ action = "toggle" }); hl.dsp.window.center() end'')];} # floating
+      {_args = ["SUPER + F" (lua ''hl.dsp.window.fullscreen({ mode = "fullscreen"; action = "toggle"})'')];} # fullscreen
+      {_args = ["SUPER + M" (lua ''hl.dsp.window.fullscreen({ mode = "maximized"; action = "toggle"})'')];} # maximized
 
       # mouse magic
       {_args = ["SUPER + mouse:272" (lua ''hl.dsp.window.drag()'')];} # drag window
