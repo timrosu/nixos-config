@@ -1,62 +1,82 @@
-{ config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 let
-  cursorFlavor = "mochaDark"; # latte, frappe, macchiato, mocha, mochaDark
-  cursorName = "catppuccin-mocha-dark-cursors"; 
+  theme_flavor = "mocha"; # latte, frappe, macchiato, mocha, mochaDark
+  theme_name = "catppuccin-mocha-dark-cursors"; 
+  theme_accent = "lavender";
 in
 {
- home.packages = with pkgs; [
-    papirus-folders
-    catppuccin-cursors.${cursorFlavor}
-  ];
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    package = pkgs.catppuccin-cursors.${cursorFlavor};
-    name = cursorName;
-    size = 24;
+  imports = [inputs.catppuccin.homeModules.catppuccin];
+
+  catppuccin = {
+    # enable = true; # sets catppuccin everywhere
+    flavor = "mocha";
+    accent = "lavender";
+
+    cursors.enable = true;
+    gtk.icon.enable = true;
+    dunst.enable = true;
+    wlogout.enable = true;
   };
 
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Breeze-Dark"; #TODO: switch to full catpuccin (or tokyonight)
-      package = pkgs.libsForQt5.breeze-gtk;
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.catppuccin-papirus-folders.override {
-        flavor = "mocha";
-        accent = "lavender";
-      };
-    };
-    cursorTheme = {
-      name = cursorName;
-      package = pkgs.catppuccin-cursors.${cursorFlavor};
-      size = 24;
-    };
-    gtk3 = {
-      extraConfig.gtk-application-prefer-dark-theme = true;
-    };
-  };
+  # home.packages = with pkgs; [
+    # papirus-folders
+    # catppuccin-papirus-folders.override
+    # catppuccin-cursors.${flavor}
+  # ];
+  
+  # home.pointerCursor = {
+  #   gtk.enable = true;
+  #   x11.enable = true;
+  #   # package = pkgs.catppuccin-cursors.${theme_flavor};
+  #   name = theme_name;
+  #   size = 24;
+  # };
 
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      gtk-theme = "Breeze-Dark";
-      color-scheme = "prefer-dark";
-    };
-  };
+  # wayland.windowManager.hyprland.settings = {
+  #   exec_cmd = [
+  #     "hyprctl setcursor ${theme_name} 24"
+  #   ];
+  #   env = [
+  #     {_args = ["HYPRCURSOR_THEME" "${theme_name}"];}
+  #     {_args = ["HYPRCURSOR_SIZE" "24"];}
+  #     {_args = ["XCURSOR_THEME" "${theme_name}"];}
+  #     {_args = ["XCURSOR_SIZE" "24"];}
+  #   ];
+  # };
 
-  wayland.windowManager.hyprland.settings = {
-    exec_cmd = [
-      "hyprctl setcursor ${cursorName} 24"
-    ];
-    env = [
-      {_args = ["HYPRCURSOR_THEME" "${cursorName}"];}
-      {_args = ["HYPRCURSOR_SIZE" "24"];}
-      {_args = ["XCURSOR_THEME" "${cursorName}"];}
-      {_args = ["XCURSOR_SIZE" "24"];}
-    ];
-  };
+
+  # gtk = {
+  #   enable = true;
+  #   catppuccin = {
+  #     enable = true;
+  #     flavor = "mocha";
+  #     accent = theme_accent;
+  #     size = "standard";
+  #     tweaks = [ "normal" ];
+  #   };
+    # iconTheme = {
+    #   name = "Papirus-Dark";
+    #   package = pkgs.catppuccin-papirus-folders.override {
+    #     flavor = "mocha";
+    #     accent = theme_accent;
+    #   };
+    # };
+    # cursorTheme = {
+    #   name = theme_name;
+    #   package = pkgs.catppuccin-cursors.${theme_flavor};
+    #   size = 24;
+    # };
+    # gtk3 = {
+    #   extraConfig.gtk-application-prefer-dark-theme = true;
+    # };
+  # };
+
+  # dconf.settings = {
+  #   "org/gnome/desktop/interface" = {
+  #     gtk-theme = "Breeze-Dark";
+  #     color-scheme = "prefer-dark";
+  #   };
+  # };
 
   # qt = {
   #   enable = true;
