@@ -5,6 +5,7 @@
     ./modules/packages-base.nix
     ./modules/python.nix
     ./modules/git.nix
+    ./modules/theming.nix
 
     # host config
     ./hosts/${hostName}/default.nix
