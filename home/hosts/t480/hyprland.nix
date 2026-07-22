@@ -55,7 +55,6 @@ in
         {_args = ["XF86MonBrightnessUp" (lua ''hl.dsp.exec_cmd("brightnessctl set 5%+")'') {locked = true;}];}
         {_args = ["XF86MonBrightnessDown" (lua ''hl.dsp.exec_cmd("brightnessctl set 5%-")'') {locked = true;}];}
         {_args = ["XF86AudioMicMute" (lua ''hl.dsp.exec_cmd("pamixer --default-source --toggle-mute")'') {locked = true;}];}
-        {_args = ["SUPER + f" (lua ''hl.dsp.window.fullscreen( { mode = fullscreen, action = toggle } )'')];}
       ];
 
       workspace_rule = [
