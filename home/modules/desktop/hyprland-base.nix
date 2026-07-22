@@ -29,10 +29,11 @@ let
       };
 
       input = {
-        kb_layout = "us";
+        kb_layout = "us,sl";
+        kb_variant = "querty";
+        kb_options = "grp:win_space_toggle,caps:swapescape";
         follow_mouse = 1;
         touchpad.natural_scroll = true;
-        kb_options = "caps:swapescape";
       };
     };
 
@@ -72,20 +73,15 @@ let
       }
       { # toggle fullscreen
         fingers = 3;
-        direction = "pinchout";
+        direction = "pinchin";
         action = "fullscreen";
         mode = "fullscreen";
       }
       { # toggle float
         fingers = 3;
-        direction = "pinchin";
+        direction = "pinchout";
         action = "float";
         mode = "float";
-      }
-      { # launch terminal
-        fingers = 4;
-        direction = "up";
-        action = (lua ''function() hl.dsp.exec_cmd("${prog.terminal}") end'');
       }
     ];
 
@@ -139,20 +135,27 @@ let
       {_args = ["KP_Up" (lua ''hl.dsp.window.move({ workspace = 8 })'')];}
       {_args = ["KP_Prior" (lua ''hl.dsp.window.move({ workspace = 9 })'')];}
 
-      # trigger floating window
-      {_args = ["SUPER + SHIFT + F" (lua ''hl.dsp.window.center()'')];}
+      # set window mode
+      {_args = ["SUPER + T" (lua ''hl.dsp.window.center()'')];} # tiling
+      {_args = ["SUPER + SHIFT + T" (lua ''hl.dsp.window.pseudo( {action = "toggle" })'')];} # pseudo tiling
+      {_args = ["SUPER + SHIFT + F" (lua ''hl.dsp.window.float({ action = "toggle" }); hl.dsp.window.center()'')];} # floating
+      {_args = ["SUPER + F" (lua ''hl.dsp.window.fullscreen({ mode = "fullscreen"; action = "toggle")'')];} # fullscreen
+      {_args = ["SUPER + M" (lua ''hl.dsp.window.fullscreen({ mode = "maximized"; action = "toggle")'')];} # maximized
 
-      # move window with mouse
-      {_args = ["SUPER + mouse:272" (lua ''hl.dsp.window.drag()'')];}
+      # mouse magic
+      {_args = ["SUPER + mouse:272" (lua ''hl.dsp.window.drag()'')];} # drag window
+      {_args = ["SUPER + SHIFT + mouse:272" (lua ''hl.dsp.window.resize()'')];} # resize window
+      # {_args = ["SUPER + mouse:272" (lua ''hl.dsp.window.resize()'')];} # pointer zoom
 
       ### apps ###
       # main
       {_args = ["SUPER + W" (lua ''hl.dsp.window.close()'')];} # close window
+      {_args = ["SUPER + SHIFT + W" (lua ''hl.dsp.window.kill()'')];} # kill window
       {_args = ["SUPER + ALT + X" (lua ''hl.dsp.exec_cmd("hyprlock")'')];} # lock the screen
       {_args = ["SUPER + M" (lua ''hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit")'')];} # idk
       {_args = ["SUPER + V" (lua ''hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy")'')];} # clipboard history popup
-      {_args = ["SUPER + R" (lua ''hl.dsp.exec_cmd("rofi -show run")'')];} # rofi
-      {_args = ["SUPER + Q" (lua ''hl.dsp.exec_cmd("rofi -show combi -modes combi -combi-modes 'window,drun,run'")'')];} # rofi
+      {_args = ["SUPER + R" (lua ''hl.dsp.exec_cmd("rofi -show run")'')];} # rofi run
+      {_args = ["SUPER + Q" (lua ''hl.dsp.exec_cmd("rofi -show combi -modes combi -combi-modes 'window,drun,run'")'')];} # rofi combo
 
       # powermenu
       {_args = ["SUPER + ESCAPE" (lua ''hl.dsp.exec_cmd("${prog.powermenu}")'') { locked = true; } ];}
@@ -171,17 +174,17 @@ let
 
       # file manager
       {_args = ["SUPER + E" (lua ''hl.dsp.exec_cmd("${prog.terminal} ${prog.filemanager.cli}")'')];}
-      {_args = ["SUPER + SHIFT + E" (lua ''hl.dsp.exec_cmd("${prog.terminal} ${prog.filemanager.cli}", { float = true, move = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
+      {_args = ["SUPER + SHIFT + E" (lua ''hl.dsp.exec_cmd("${prog.terminal} ${prog.filemanager.cli}", { float = true, move = {"monitor_w * 0.25", "monitor_h * 0.25"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
       {_args = ["SUPER + CTRL + E" (lua ''hl.dsp.exec_cmd("${prog.filemanager.gui}")'')];}
 
       # pulsemixer
-      {_args = ["SUPER + A" (lua ''hl.dsp.exec_cmd("${prog.terminal} pulsemixer", { float = true, move = {"monitor_w * 0.5", "monitor_h * 0.5"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
+      {_args = ["SUPER + A" (lua ''hl.dsp.exec_cmd("${prog.terminal} pulsemixer", { float = true, move = {"monitor_w * 0.25", "monitor_h * 0.25"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
 
       ## bluetooth
       # rofi
       {_args = ["SUPER + F10" (lua ''hl.dsp.exec_cmd("rofi-bluetooth")'')];}
       # tui
-      {_args = ["SUPER + SHIFT + F10" (lua ''hl.dsp.exec_cmd("${prog.terminal} bluetuith", { float = true, move = {"monitor_w * 0.5", "monitor_h * 0.5"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
+      {_args = ["SUPER + SHIFT + F10" (lua ''hl.dsp.exec_cmd("${prog.terminal} bluetuith", { float = true, move = {"monitor_w * 0.25", "monitor_h * 0.25"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
 
       # wifi rofi
       {_args = ["SUPER + F8" (lua ''hl.dsp.exec_cmd("networkmanager_dmenu")'')];}
@@ -191,6 +194,9 @@ let
       {_args = ["XF86AudioMute" (lua ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")'') {locked = true;} ];}
       {_args = ["XF86AudioLowerVolume" (lua ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")'') {locked = true; repeating = true;} ];}
       {_args = ["XF86AudioRaiseVolume" (lua ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")'') {locked = true; repeating = true;} ];}
+
+      # toggle keeb lang (notification)
+      {_args = ["SUPER + Space" (lua ''hl.dsp.exec_cmd("hyprctl notify -1 1500 0 $(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')")'') {locked = true;} ];}
 
       ## media controls ##
       # for desktop
