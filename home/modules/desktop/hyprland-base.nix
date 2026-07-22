@@ -29,8 +29,7 @@ let
       };
 
       input = {
-        kb_layout = "us,sl";
-        kb_variant = "querty";
+        kb_layout = "us,si";
         kb_options = "grp:win_space_toggle,caps:swapescape";
         follow_mouse = 1;
         touchpad.natural_scroll = true;
