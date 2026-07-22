@@ -6,7 +6,7 @@ let
   cfg = config.wayland.hyprland;
   lua = lib.generators.mkLuaInline;
   prog = vars.programs;
-
+  floating = ''{ float = true, move = {"monitor_w * 0.25", "monitor_h * 0.25"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} }'';
 
   baseSettings = {
     config = {
@@ -114,7 +114,7 @@ let
       {_args = ["SUPER + SHIFT + 8" (lua ''hl.dsp.window.move({ workspace = 8 })'')];}
       {_args = ["SUPER + SHIFT + 9" (lua ''hl.dsp.window.move({ workspace = 9 })'')];}
       # relative
-      {_args = ["SUPER + SHIFT + bracketleft" (lua ''hl.dsp.window.move({ workspace = "r-1" })'')];}
+      {_args = ["SUPER + SHIFT + bracketleft" (lua ''hl.dsp.window.move({ workspace = "r-1" })'')];} #TODO: move window without jumping
       {_args = ["SUPER + SHIFT + bracketright" (lua ''hl.dsp.window.move({ workspace = "r+1" })'')];}
 
       # jump to workspace
@@ -173,8 +173,8 @@ let
       {_args = ["SUPER + SHIFT + B" (lua ''hl.dsp.exec_cmd("${prog.browser.sec}")'')];}
 
       # terminal
-      {_args = ["SUPER + X" (lua ''hl.dsp.exec_cmd("${prog.terminal}")'')];} # terminal
-      {_args = ["SUPER + SHIFT + X" (lua ''hl.dsp.exec_cmd("${prog.terminal}")'') { float = true; } ];} # terminal
+      {_args = ["SUPER + X" (lua ''hl.dsp.exec_cmd("${prog.terminal}")'')];}
+      {_args = ["SUPER + SHIFT + X" (lua ''hl.dsp.exec_cmd("${prog.terminal}", ${floating})'')];}
       
       # calculator
       {_args = ["XF86Calculator" (lua ''hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort")'')];}
@@ -182,17 +182,17 @@ let
 
       # file manager
       {_args = ["SUPER + E" (lua ''hl.dsp.exec_cmd("${prog.terminal} ${prog.filemanager.cli}")'')];}
-      {_args = ["SUPER + SHIFT + E" (lua ''hl.dsp.exec_cmd("${prog.terminal} ${prog.filemanager.cli}", { float = true, move = {"monitor_w * 0.25", "monitor_h * 0.25"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
+      {_args = ["SUPER + SHIFT + E" (lua ''hl.dsp.exec_cmd("${prog.terminal} ${prog.filemanager.cli}", ${floating})'')];}
       {_args = ["SUPER + CTRL + E" (lua ''hl.dsp.exec_cmd("${prog.filemanager.gui}")'')];}
 
       # pulsemixer
-      {_args = ["SUPER + A" (lua ''hl.dsp.exec_cmd("${prog.terminal} pulsemixer", { float = true, move = {"monitor_w * 0.25", "monitor_h * 0.25"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
+      {_args = ["SUPER + A" (lua ''hl.dsp.exec_cmd("${prog.terminal} pulsemixer", ${floating})'')];}
 
       ## bluetooth
-      # rofi
+      # rof
       {_args = ["SUPER + F10" (lua ''hl.dsp.exec_cmd("rofi-bluetooth")'')];}
       # tui
-      {_args = ["SUPER + SHIFT + F10" (lua ''hl.dsp.exec_cmd("${prog.terminal} bluetuith", { float = true, move = {"monitor_w * 0.25", "monitor_h * 0.25"}, size = {"monitor_w * 0.5", "monitor_h * 0.5"} })'')];}
+      {_args = ["SUPER + SHIFT + F10" (lua ''hl.dsp.exec_cmd("${prog.terminal} bluetuith", ${floating})'')];}
 
       # wifi rofi
       {_args = ["SUPER + F8" (lua ''hl.dsp.exec_cmd("networkmanager_dmenu")'')];}
