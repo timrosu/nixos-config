@@ -18,13 +18,13 @@ in
       monitor = [
         {
           output = "desc:${deskmon1}";
-          mode = "2560x1440@180"; # runs on 60 hz on lenovo usb dock
+          mode = "2560x1440@60";
           position = "0x0";
           scale = 1;
         }
         {
           output = "desc:${deskmon2}";
-          mode = "1920x1080@144";
+          mode = "1920x1080@60";
           position = "2560x0";
           scale = 1;
         }
