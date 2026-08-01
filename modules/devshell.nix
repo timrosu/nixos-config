@@ -1,12 +1,12 @@
-{ pkgs, perSystem }:
-{
-  systems = [
-    "x86_64-linux"
-  ];
-}
+{ pkgs ? import <nixpkgs> {} }:
+# {
+#   systems = [
+#     "x86_64-linux"
+#   ];
+# }
 pkgs.mkShellNoCC {
   packages = [
-    perSystem.sops-nix.default
+    # perSystem.sops-nix.default
     pkgs.nixos-anywhere
     pkgs.nixos-rebuild
     pkgs.age
