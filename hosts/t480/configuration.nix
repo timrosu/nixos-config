@@ -19,6 +19,7 @@
 
   # Gnome keyring daemon for secrets management
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
 
   hardware.bluetooth.enable = true;
   programs.kdeconnect.enable = true;
