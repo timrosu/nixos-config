@@ -21,6 +21,8 @@
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
+  services.pcscd.enable = true;
+
   hardware.bluetooth.enable = true;
   programs.kdeconnect.enable = true;
 
