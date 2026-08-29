@@ -122,10 +122,10 @@ in
           match = { class = "^org\.telegram\.desktop$"; };
           opacity = "0.87";
         }
-        {
-          match = { class = "firefox"; };
-          opacity = "0.94 0.94 1.00";
-        }
+        # {
+        #   match = { class = "firefox"; };
+        #   opacity = "0.94 0.94 1.00";
+        # }
         {
           match = { class = "^Proton\.Mail$"; };
           opacity = "0.87";

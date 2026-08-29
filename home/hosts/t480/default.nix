@@ -3,7 +3,7 @@
 {
   imports = [
     ./packages.nix
-    ../../modules/firefox/default.nix
+    ../../modules/firefox
     # ../../modules/firefox/extensions.nix
     # ../../modules/firefox/bookmarks.nix
     ../../modules/vscode.nix
@@ -17,9 +17,8 @@
     ../../modules/desktop/hyprsunset.nix
     ../../modules/protonmail-bridge.nix
     ../../modules/thunderbird.nix
-    ../../modules/security.nix
 
-    ../../modules/cli/yazi/default.nix
+    ../../modules/cli/yazi
     ../../modules/cli/btop.nix
     ../../modules/cli/lazygit.nix
   ];

@@ -48,5 +48,9 @@
   security.pam.services.login.fprintAuth = true;
   security.pam.services.sudo.fprintAuth = true;
 
+  security.pam.services.greetd.enableGnomeKeyring = true;
+  services.gnome.gnome-keyring.enable = true;
+  services.pcscd.enable = true;
+
   system.stateVersion = "26.05";
 }
