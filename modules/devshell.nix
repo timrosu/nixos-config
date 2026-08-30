@@ -1,17 +1,30 @@
-{ pkgs ? import <nixpkgs> {} }:
-# {
-#   systems = [
-#     "x86_64-linux"
-#   ];
-# }
-pkgs.mkShellNoCC {
-  packages = [
-    # perSystem.sops-nix.default
-    pkgs.nixos-anywhere
-    pkgs.nixos-rebuild
-    pkgs.age
-    pkgs.pwgen
-    pkgs.sops
-    pkgs.ssh-to-age
+{ inputs, ... }:
+{
+  systems = [
+    "x86_64-linux"
   ];
+  imports = [ inputs.treefmt-nix.flakeModule ];
+  perSystem =
+    { pkgs, ... }:
+    {
+      treefmt = {
+        projectRootFile = "flake.nix";
+        settings.global.excludes = [
+          "*.lock"
+          ".gitignore"
+          "secrets/*"
+        ];
+        programs.nixfmt.enable = true;
+        programs.nixfmt.package = pkgs.nixfmt-rfc-style;
+        programs.deadnix.enable = true;
+        programs.shellcheck.enable = true;
+      };
+      packages.default = pkgs.mkShell {
+        packages = [
+          pkgs.just
+          pkgs.nh
+          pkgs.nixos-rebuild-ng
+        ];
+      };
+    };
 }

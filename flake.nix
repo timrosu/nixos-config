@@ -2,14 +2,22 @@
   description = "flandr unified nix env";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
-    yazi.url = "github:sxyazi/yazi";
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/nixos-26.05";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-26.05";
+    };
+    yazi = {
+      url = "github:sxyazi/yazi";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-06cb-009a-fingerprint-sensor.url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=24.11";
+    t480-fprint = {
+      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=24.11";
+    };
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,14 +26,20 @@
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    catppuccin.url = "github:catppuccin/nix/release-26.05";
+    catppuccin = {
+      url = "github:catppuccin/nix/release-26.05";
+    }
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ ... }: let
+  outputs = inputs: let
       vars = import ./vars.nix;
     in {
       nixosConfigurations = {
@@ -35,7 +49,7 @@
           modules = [
             inputs.stylix.nixosModules.stylix
             inputs.nixvim.nixosModules.nixvim
-            inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
+            inputs.t480-fprint.nixosModules."06cb-009a-fingerprint-sensor"
             inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
             inputs.home-manager.nixosModules.home-manager
             ./modules/nixvim/default.nix
