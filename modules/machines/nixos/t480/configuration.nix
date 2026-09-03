@@ -4,13 +4,13 @@
     ./hardware-configuration.nix
     ./networking.nix
     ./power.nix
-    ../../modules/common.nix
-    ../../modules/shell.nix
-    ../../modules/desktop/hyprland.nix
-    ../../modules/sudo.nix
-    ../../modules/utilities.nix
-    ../../modules/virtual-machines/libvirt.nix
-    ../../modules/hardware/intel/intel-qsv.nix
+    ../../../common.nix
+    ../../../shell.nix
+    ../../../desktop/hyprland.nix
+    ../../../sudo.nix
+    ../../../utilities.nix
+    ../../../virtual-machines/libvirt.nix
+    ../../../hardware/intel/intel-qsv.nix
   ];
 
     # Boot configuration

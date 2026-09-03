@@ -5,6 +5,12 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-26.05";
     };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+    };
+    import-tree = {
+      url = "github:vic/import-tree";
+    };
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
     };
@@ -28,7 +34,7 @@
     };
     catppuccin = {
       url = "github:catppuccin/nix/release-26.05";
-    }
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,9 +45,11 @@
     };
   };
 
-  outputs = inputs: let
-      vars = import ./vars.nix;
-    in {
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; }
+      (inputs.import-tree ./modules);
+
+      /* TODO: make a module
       nixosConfigurations = {
         t480 = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -64,5 +72,5 @@
           ];
         };
       };
-    };
+      */
 }

@@ -4,8 +4,7 @@
     "x86_64-linux"
   ];
   imports = [ inputs.treefmt-nix.flakeModule ];
-  perSystem =
-    { pkgs, ... }:
+  perSystem = { pkgs, ... }:
     {
       treefmt = {
         projectRootFile = "flake.nix";

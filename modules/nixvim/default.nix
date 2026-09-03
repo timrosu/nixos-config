@@ -1,7 +1,10 @@
-{ pkgs, ... }: let
-  keymap = import ./keymap.nix;
-  plugins = import ./plugins.nix;
-in {
+{ pkgs, ... }:
+{
+  imports = [
+    ./keymap.nix
+    ./plugins.nix
+  ];
+
   environment.systemPackages = with pkgs; [ 
     ripgrep # required for Telescope live_grep
   ];
@@ -32,9 +35,6 @@ in {
     };
 
     globals.mapleader = " ";
-    keymaps = keymap;
-
-    plugins = plugins;
 
     extraConfigLua = ''
       if vim.env.SSH_TTY then
