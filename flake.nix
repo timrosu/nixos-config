@@ -24,6 +24,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+  
 
   outputs = inputs@{ ... }: let
       vars = import ./vars.nix;
