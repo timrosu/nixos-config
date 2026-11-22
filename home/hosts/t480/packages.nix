@@ -6,7 +6,6 @@
     pamixer
     telegram-desktop
     esptool
-    zoom-us
     filezilla
     gimp
     pkgs.onlyoffice-desktopeditors
@@ -24,5 +23,6 @@
     mitmproxy
     whatweb
     pcmanfm
+    tio
   ];
 }
