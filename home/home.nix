@@ -29,11 +29,16 @@
     extraPortals = [
       pkgs.xdg-desktop-portal-gnome
       pkgs.xdg-desktop-portal-gtk
-      # pkgs.xdg-desktop-portal-termfilechooser
+      pkgs.xdg-desktop-portal-termfilechooser
     ];
-    config.common = {
-      default = [ "gnome" "gtk" ];
-      # "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+    config = {
+      common = {
+        default = [ "gnome" "gtk" ];
+        # "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+      };
+      hyprland = {
+        "org.freedesktop.impl.portal.FileChooser" = "pcmanfm";
+      };
     };
   };
 }
