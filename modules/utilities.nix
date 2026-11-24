@@ -19,5 +19,6 @@
     jq
     linuxPackages.turbostat
     ttyplot
+    wireshark
   ];
 }
